@@ -1,0 +1,224 @@
+.blog-detail-page
+  background #fff
+
+.article-content
+  padding 4rem 0
+  max-width 800px !important
+
+.article-intro-container
+  position relative
+  margin-top -50px
+  background no-repeat center center
+  background-size cover
+
+  .article-intro-mask
+    position absolute
+    width 100%
+    height 100%
+    background rgba(0, 0, 0, .3)
+
+  .article-intro-body
+    position relative
+    padding 85px 20px
+    color #fff
+
+    .article-title
+      text-transform capitalize
+      font-size 3rem
+      font-weight 700
+
+    .article-subheading
+      font-size 2rem
+      margin 10px 0
+
+    .article-meta
+      font-family Lora, 'Times New Roman', serif
+      font-size 1.5rem
+      font-style italic
+
+.tags
+  margin-bottom 15px
+  li
+    display inline-block
+    margin-right 5px
+    a
+      display inline-block
+      border 1px solid rgba(255, 255, 255, .8)
+      border-radius 999rem
+      padding 0 10px
+      color #fff
+      line-height 24px
+      font-size 1.3rem
+      text-decoration none
+      margin 0 1px
+      min-width 60px
+      text-align center
+      text-transform capitalize
+
+      &:hover
+        color #fff
+        border-color #fff
+        background-color rgba(255, 255, 255, .4)
+        text-decoration none
+
+.article-menu-btn.active
+  bottom 20px
+
+.article-menu-btn
+  position fixed
+  left 30px
+  bottom -100px
+  transition all .5s
+  width 48px
+  height 45px
+  z-index 100
+
+  .article-menu
+    position relative
+    display block
+    width 100%
+    height 100%
+    background #08cbc4
+    outline none
+    border none
+    text-indent -900em
+    overflow hidden
+    cursor pointer
+    border-radius 5px
+    transition 0 500ms top
+
+    &:after
+      content ''
+      position absolute
+      width 68%
+      height 5px
+      background #fff
+      top 10px
+      left 16%
+      box-shadow 0 10px 0 #fff, 0 20px 0 #fff
+
+    &:active
+      top 1px
+
+.article-menu-wrapper
+  position: fixed
+  top 0
+  left 0
+  z-index 100
+  width 30rem
+  height 100%
+  background inherit
+  transition all 500ms
+  transform translate3d(-100%, 0, 0) rotateY(90deg)
+  transform-style preserve-3d
+  transform-origin 100% 50%
+
+  &:before
+    content ""
+    display block
+    width 100%
+    height 5rem
+    background transparent
+
+.article-content-wrapper
+  position relative
+  transition all .5s
+
+  &:after
+    position absolute
+    transition all .5s
+    left 0
+    right 0
+    top 0
+    bottom 0
+    background rgba(0, 0, 0, .5)
+    content ""
+    opacity 0
+    visibility hidden
+
+  .markdown-wrapper
+    background #fff
+    color #2f2f2f
+    padding 4rem 0
+
+.blog-detail-page.active
+
+  .article-menu-wrapper
+    transform translate3d(0, 0, 0) rotateY(0deg)
+
+  .article-content-wrapper
+    transform: translate3d(300px, 0, 0)
+
+    &:after
+      visibility visible
+      opacity 1
+
+.blog-detail-dark-them
+  background #000
+
+  .markdown
+    color #fff
+    background #000
+
+    a
+      color #fff
+
+/*480*/
+@media (min-width 34em)
+
+  .article-intro-container
+
+    .article-intro-body
+      padding 100px 50px
+
+      .article-title
+        font-size 3rem
+
+      .article-subheading
+        font-size 2.5rem
+
+      .article-meta
+        font-size 2rem
+
+/*720*/
+@media (min-width 48em)
+
+  .article-intro-container
+
+    .article-intro-body
+      padding 150px 80px
+
+      .article-title
+        font-size 4rem
+
+      .article-subheading
+        font-size 2.5rem
+
+      .article-meta
+        font-size 1.8rem
+
+@media (min-width 75em)
+
+  .article-intro-container
+    //max-width 880px
+    //left -135px
+
+    .article-intro-body
+      padding 15rem 20rem
+      min-height 51rem
+
+      .article-title
+        font-size 5.5rem
+
+      .article-subheading
+        font-size 3rem
+
+      .article-meta
+        font-size 2rem
+
+.dark-theme
+  .markdown-wrapper
+    background #222
+    color #ccc
+    pre
+      opacity .85

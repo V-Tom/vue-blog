@@ -1,0 +1,54 @@
+<style>
+</style>
+<template>
+  <header class="App_header" v-scroll="" v-bind:class="{'active':disable,'open':openHeaderMenu}">
+    <nav class="App_header_container">
+      <div class="App_header_body container">
+        <section class="App_nav_description" data-page="I Am A Full-stack Developer"></section>
+        <section class="App_nav_logo">
+          <i class="icon icon-logo"></i>
+          <a href="/" data-page="0" title=""></a>
+          <button type="button" class="App_nav_toggle" v-on:click.stop="showMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </section>
+        <section class="App_nav_bar">
+          <ul>
+            <li><a v-link="{name:'blog'}" data-page="1"><i class="icon icon-blog"></i></a></li>
+            <li><a v-link="{name:'labs'}" data-page="2"><i class="icon icon-labs"></i></a></li>
+          </ul>
+          <ul>
+            <li><a v-link="{name:'about'}" data-page="5"><i class="icon icon-me"></i></a></li>
+            <li><a v-link="{name:'message'}" data-page="6"><i class="icon icon-message"></i></a></li>
+          </ul>
+        </section>
+      </div>
+    </nav>
+  </header>
+</template>
+<script>
+  'use strict';
+  import '../libs/vue/vue-scroll'
+  export default{
+    name: "header",
+    props: ["scrollLimit", "disable", "openHeaderMenu"],
+    data(){
+      return {}
+    },
+    ready(){
+    },
+    methods: {
+      scroll: function () {
+
+      },
+      showMenu: function () {
+        this.openHeaderMenu = !this.openHeaderMenu;
+      }
+    }
+  }
+</script>
+<style lang="stylus" scoped>
+  @import "../style/header.stylus";
+</style>

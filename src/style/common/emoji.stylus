@@ -1,0 +1,54 @@
+emoji-cdn-url = "http://7xiqgq.com1.z0.glb.clouddn.com/static/image/tools/emoji.png"
+emoji-line-number = 7
+
+.emoji-face
+  display inline-block
+  width 24px
+  height 24px
+  background url(emoji-cdn-url) top left no-repeat
+  vertical-align top
+  transition all 500ms
+
+.emoji-face-container
+  position absolute
+  background #fff
+  box-shadow 2px 3px 10px rgba(0, 0, 0, 0.6)
+  transition all 300ms
+  transform-origin 100% 50%
+  width 300px
+  height auto
+  transform translate3d(0, 0, 0)
+  z-index 1000
+  .close
+    position absolute
+    right 1rem
+
+  .emoji-face-title
+    font-size 1.6rem
+    height 36px
+    line-height 36px
+    border-bottom 1px solid #ebebeb
+    color #777
+    text-indent 15px
+    overflow hidden
+    cursor default
+    user-select none
+
+  .emoji-face-list
+
+    a
+      float left
+      font-size 0
+      text-align center
+      width (100 / emoji-line-number) %
+      height 40px
+      line-height 40px
+      transition all 300ms ease
+
+      &:hover
+        background #eee
+
+      i
+        vertical-align middle
+        margin 0 .2rem
+

@@ -1,0 +1,49 @@
+
+.icon
+  font-family fontAwesome !important
+  display inline-block
+
+.icon-blog:before
+  content "\f0b1"
+
+.icon-labs:before
+  content "\e9aa"
+
+.icon-modules:before
+  content "\e9a8"
+
+.icon-me:before
+  content "\e9eb"
+
+.icon-message:before
+  content "\e96b"
+
+.icon-github:before
+  content "\eab1"
+
+.icon-clock:before
+  content "\f017"
+
+.icon-user:before
+  content "\f007"
+
+.icon-mail:before
+  content "\f003"
+
+.icon-website:before
+  content "\f041"
+
+.icon-smile-face:before
+  content "\f118"
+
+.icon-error:before
+  content: "\f071"
+  color rgba(255, 102, 0, 1)
+
+.icon-info:before
+  content: "\f05a"
+  color rgba(45, 183, 245, 1)
+
+.icon-success:before
+  content: "\f058"
+  color rgba(135, 208, 104, 1)

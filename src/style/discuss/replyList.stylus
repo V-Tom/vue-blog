@@ -1,0 +1,83 @@
+.reply-list-wrap
+  position relative
+  margin 0 auto
+  padding 3rem 0
+  .reply-loading
+    height 5.2rem
+    width 5.5rem
+    margin 0 auto
+    overflow hidden
+    position: relative
+    background url("http://a.disquscdn.com/next/embed/assets/img/loader-bg.173909e4737a7481df14d5492b5eeb48.png") no-repeat
+
+    .reply-loading-spinner
+      width 26px
+      height 26px
+      position: absolute
+      top 13px
+      left 15px
+      border-width 3px
+      border-style solid
+      //border-color rgba(51, 54, 58, 0.4) transparent
+      border-color rgba(255, 255, 255, 1) transparent
+      border-radius 13px
+      transform-origin 50% 50% 0px
+  .reply-list
+    padding 0
+
+    li
+      list-style none
+      border-radius .5rem
+      margin 1.5rem 0
+
+      .reply-user-avatar
+        float left
+        border .1rem solid #ccc
+        border-radius 50%
+        width 5rem
+        height 5rem
+
+      .reply-main
+        position relative
+        margin 0 7.5rem
+        border .1rem solid #8E8686
+        border-radius .3rem
+        transition all 300ms
+
+        &:after, &:before
+          position absolute
+          top 10px
+          left -9px
+          right 100%
+          width 0
+          height 0
+          display block
+          content " "
+          border-color transparent
+          border-style solid solid outset
+          border-width 8px 8px 8px 0
+          pointer-events none
+
+        &:after
+          border-right-color #BFBBBB
+          margin-left 1px
+          z-index 2
+
+        &:before
+          border-right-color #dedede
+          z-index 1
+
+        &:hover
+          background rgba(79, 79, 79, .8)
+
+        header
+          font-size 1.3rem
+          color #999
+          padding 1rem 1.5rem
+          background inherit
+          border-bottom .1rem solid #585858
+
+        section
+          font-size 1.4rem
+          padding 1.5rem
+          overflow hidden

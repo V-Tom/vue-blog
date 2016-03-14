@@ -1,0 +1,188 @@
+reply-user-info-input-height = 3.5rem
+reply-user-info-input-width = 25rem
+
+.discuss-form
+  position relative
+
+  > section
+    padding-left 6rem
+
+  .discuss-info label.active
+    i
+      opacity 1
+      transform translate3d(0, 0, 0)
+    span
+      opacity 0
+      transform translate3d(10rem, 0, 0)
+
+  .discuss-info
+    margin 1rem 0
+    div
+      position relative
+      z-index 1
+      margin .5rem 0
+      display block
+      width reply-user-info-input-width
+      height reply-user-info-input-height
+      vertical-align top
+      overflow hidden
+      border .1rem solid #ccc
+      border-radius .3rem
+      font-size 1.4rem
+      input
+        position relative
+        float right
+        width 100%
+        display block
+        font-size inherit
+        z-index 10
+        color #d2d2d2
+        padding .8rem
+        padding-left 5rem
+        font-weight 400
+        background transparent
+      label
+        display inline-block
+        position absolute
+        width 100%
+        font-size inherit
+        pointer-events none
+        color #d2d2d2
+        text-align left
+        padding 0 1rem
+        float right
+        font-weight bold
+        -webkit-font-smoothing antialiased
+        user-select none
+
+        span
+          display inline-block
+          text-indent 1.1rem
+          position relative
+          padding .7rem 0
+          width auto
+          font-size inherit
+          font-weight bold
+          text-transform capitalize
+          -webkit-font-smoothing antialiased
+          transition transform 300ms 0s, opacity 300ms
+          transition-timing-function cubic-bezier(0.7, 0, 0.3, 1)
+
+        i
+          display inline-block
+          opacity 0
+          width 2rem
+          text-align center
+          transform translate3d(-10rem, 0, 0)
+          transition transform 300ms, opacity 300ms
+          transition-timing-function cubic-bezier(0.7, 0, 0.3, 1)
+
+  .discuss-content
+    position relative
+
+    .avatar
+      position absolute
+      display block
+      font-size 0
+      left 0
+      top 0
+      width 5rem
+      height 5rem
+      cursor pointer
+      border-radius 50%
+      transition transform 300ms 0s ease
+
+      img
+        width inherit
+        height inherit
+        border-radius inherit
+
+      &:hover
+        transform rotate(360deg)
+
+    .discuss-content-body
+      border .1rem solid #ccc
+      border-radius .5rem
+      padding 0
+
+      .discuss-content-toolbar a.active
+        color #00b0e8
+
+      .discuss-content-toolbar
+        position relative
+        width 100%
+        height 3.5rem
+        border-top .1rem solid #ccc
+        text-align left
+        padding 0 1.5rem
+
+        a
+          display inline-block
+          font-size 0
+          width 3.5rem
+          height 3.5rem
+          line-height 3.5rem
+          text-align center
+          color #ccc
+
+          &:hover
+            color #00b0e8
+          i
+            font-size 2rem
+
+      textarea
+        display block
+        line-height 2.0rem
+        border none
+        -webkit-appearance none
+        overflow auto
+        padding 1.5rem
+        width 100%
+        max-width 100%
+        min-height 8rem
+        box-shadow none
+        outline none
+        font-size 1.4rem
+
+  .discuss-submit
+    position relative
+    padding-top .6rem
+    padding-bottom .6rem
+
+    .verify-code
+      position relative
+      width 18rem
+      height 3.2rem
+      float left
+      cursor pointer
+      background #fff
+
+      img
+        display block
+        width inherit
+        height inherit
+
+    input
+      display inline-block
+      float left
+      height 3.2rem
+      padding .3rem
+      margin 0 .3rem
+
+    button
+      display inline-block
+      position relative
+      font-size 1.5rem
+      outline none
+      padding .6rem 2rem
+      -webkit-appearance none
+      border none
+      border-radius .4rem
+      cursor pointer
+      opacity .8
+      transition all 300ms
+
+      &:hover
+        position relative
+        top .2rem
+        opacity 1
