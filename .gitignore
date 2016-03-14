@@ -1,0 +1,4 @@
+*.agdai
+node_modules/*
+.idea/*
+dist/*
