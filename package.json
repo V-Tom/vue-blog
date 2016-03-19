@@ -7,7 +7,7 @@
     "node-start": "node ./bin/www",
     "node-dev": "supervisor ./bin/www",
     "webpack-dev": "webpack-dev-server --display-error-details --inline --hot --host 0.0.0.0 --port:8080 --config build/webpack.dev.config.js",
-    "webpack-build": "webpack --progress --colors  --display-error-details --hide-modules  --config build/webpack.prod.config.js",
+    "webpack-build": "webpack --progress --colors  --profile  --json >stats.json --display-error-details --hide-modules  --config build/webpack.prod.config.js",
     "gulp-server": "gulp server",
     "gulp-build": "gulp build",
     "karma-test": "karma start build/karma.conf.js"
