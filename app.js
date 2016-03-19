@@ -13,7 +13,7 @@ app.use(compression());
 
 app.set('env', 'development');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
@@ -29,7 +29,7 @@ var allowCrossDomain = function (req, res, next) {
 };
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'src', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
