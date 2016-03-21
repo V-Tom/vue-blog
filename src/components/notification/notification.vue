@@ -32,5 +32,5 @@
   }
 </script>
 <style lang="stylus">
-  @import "../../style/notification/notification.stylus";
+  @import "../../style/notification/index.stylus";
 </style>

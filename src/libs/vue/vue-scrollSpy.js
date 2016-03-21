@@ -8,10 +8,7 @@ void function () {
   } else {
     throw new Error("can'\t find Vue instance here !");
   }
-  var getScrollEventTarget = function (element) {
-    if (element) {
-      return document.querySelector(element);
-    }
+  var getScrollEventTarget = function () {
     return window;
   };
   var getOffsetTop = function (element) {
@@ -20,7 +17,7 @@ void function () {
   var throttle = function () {
     return function () {
       var directive = this;
-
+      console.log('srcoll !');
     }
   };
   var escapeSelector = function (selector) {
@@ -32,12 +29,12 @@ void function () {
       var directive = this;
       directive.selector = '[data-level]';
       directive.cache = [];
-      directive.scrollSpyBody = document.querySelector('.article-menu-wrapper') || window;
+      directive.scrollSpyBody = document.querySelector('.article-scrollSpy') || window;
       directive.contentBody = document.querySelector('.article-content') || window;
       directive.init();
-      //directive.scrollListener = throttle();
-      //directive.scrollEventTarget = getScrollEventTarget();
-      //directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener.bind(directive), false);
+      directive.scrollListener = throttle();
+      directive.scrollEventTarget = window;
+      directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener.bind(directive), false);
     },
     init: function () {
       var directive = this;
@@ -65,7 +62,8 @@ void function () {
       tryBind();
     },
     unbind () {
-      //this.scrollEventTarget.removeEventListener('scroll', this.scrollListener, false);
+      debugger;
+      this.scrollEventTarget.removeEventListener('scroll', this.scrollListener);
     }
   })
 }();

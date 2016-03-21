@@ -1,11 +1,19 @@
 <template>
-  <section class="blog-detail-page" :class="{'active':openArticleMenu}"
+  <section class="blog-detail-page" listen="articleDetailReady"
+           :class="{'active':openArticleMenu}"
            transition="page-slide"
            transition-mode="out-in">
-    <div class="article-menu-btn" :class="{'active':articleDetailReady}">
-      <button type="button" class="article-menu" @click.stop="showArticleMenu"></button>
+
+    <div class="article-side-btn" :class="{'active':articleDetailReady}">
+      <button type="button" class="article-menu" title="article menu" @click.stop="showArticleMenu"></button>
     </div>
-    <div class="article-menu-wrapper"></div>
+
+    <div class="article-sidebar">
+      <section class="article-sidebar-inner">
+        <v-scroll-spy :ready="articleDetailReady" :article="navigationArticle"></v-scroll-spy>
+      </section>
+    </div>
+
     <div class="article-content-wrapper" @click.stop="hideArticleMenu">
       <header class="article-intro-container" :style="{backgroundImage:'url('+ article.intro.pic  +')'}">
         <section class="article-intro-mask"></section>
@@ -20,9 +28,11 @@
           <p class="article-meta" v-text="article.meta"></p>
         </section>
       </header>
+
       <div class="markdown-wrapper">
         <article class="markdown container article-content" v-html="article.content"></article>
       </div>
+
       <v-discuss></v-discuss>
     </div>
   </section>
@@ -30,15 +40,11 @@
 
 <script type="es6">
   'use strict';
+  import {ArticleApi} from '../../api'
   import marked from '../../libs/markdown/marked'
   import Prism from '../../libs/markdown/prism'
-  import {ArticleApi} from '../../api'
   import Notification from '../../components/notification'
-  //1900 870
-  //https://www.google.com.hk/imgres?imgurl=http://theodorelee.com/wp-content/uploads/2015/04/grunt-vs-gulp.jpg&imgrefurl=http://theodorelee.com/2015/04/take-a-big-gulp/&h=500&w=2000&tbnid=MhgRhJR-Fe-jDM:&docid=gwUIyiNl9jdfnM&ei=SVjiVs3iGcbmyQOInYfABQ&tbm=isch&ved=0ahUKEwiNq5n987fLAhVGc3IKHYjOAVgQMwhnKEEwQQ#h=500&w=2000
-  //https://www.google.com.hk/imgres?imgurl=https://i.ytimg.com/vi/oFu7Wzr1_JA/maxresdefault.jpg&imgrefurl=https://www.youtube.com/watch?v%3DoFu7Wzr1_JA&h=913&w=1628&tbnid=wJm7J80bIlyV-M:&docid=vS_L4TvbH6pTvM&ei=41jiVsa9I-niywOf_YSgCA&tbm=isch&ved=0ahUKEwiGu9rG9LfLAhVp8XIKHZ8-AYQQMwgoKA0wDQ
-  //https://www.google.com.hk/imgres?imgurl=http://stfalcon.com/uploads/images/56939ac4e5329.jpeg&imgrefurl=http://stfalcon.com/en/blog/post/grunt-vs-gulp&h=300&w=960&tbnid=wjrvk1cBoxnYsM:&docid=OmhrmHxAKeMFUM&ei=I1niVuWoFau5ygPH-pa4Cg&tbm=isch&ved=0ahUKEwilxo7l9LfLAhWrnHIKHUe9BacQMwhOKCgwKA
-  //https://www.google.com.hk/imgres?imgurl=https://alexhunt.io/content/grunt-vs-gulp.jpg&imgrefurl=https://alexhunt.io/build-systems-grunt-vs-gulp/&h=360&w=880&tbnid=K7C4KcnFdcsulM:&docid=jZGZtZ_0l2oduM&ei=I1niVuWoFau5ygPH-pa4Cg&tbm=isch&ved=0ahUKEwilxo7l9LfLAhWrnHIKHUe9BacQMwgiKAcwBw&biw=1481&bih=867
+  import '../../libs/vue/vue-scrollSpy'
   export default{
     name: 'articleDetail',
     data(){
@@ -48,6 +54,7 @@
             pic: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
           }
         },
+        navigationArticle: '.article-content',
         articleDetailReady: false,
         openArticleMenu: false
       }
@@ -106,17 +113,16 @@
     methods: {
       showArticleMenu: function (event) {
         this.openArticleMenu = !this.openArticleMenu;
-        this.articleDetailReady = false;
       },
       hideArticleMenu: function (event) {
         if (this.openArticleMenu == true) {
           this.openArticleMenu = false;
-          this.articleDetailReady = true;
         }
       }
     },
     components: {
-      'v-discuss': require('../../components/discuss/index.vue')
+      'v-discuss': require('../../components/discuss/index.vue'),
+      'v-scroll-spy': require('../../components/scrollSpy/index.vue')
     }
   }
 </script>

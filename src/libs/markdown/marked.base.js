@@ -813,16 +813,39 @@
     return html;
   };
 
+  //TODO 暂时注释掉
+  //Renderer.prototype.heading = function (text, level, raw) {
+  //  return '<h'
+  //    + level
+  //    + '>'
+  //    + text
+  //    + '</h'
+  //    + level
+  //    + '>\n';
+  //};
+  Renderer.prototype.getHeading = function (level) {
+    if (isNaN(Number(level))) {
+      return 'undefined level it is a bug ';
+    } else {
+      return level >= 2 ? level - 1 : 'useless- ' + level;
+    }
+  };
   Renderer.prototype.heading = function (text, level, raw) {
     return '<h'
       + level
-      + '>'
+      + ' id="'
+      + this.options.headerPrefix
+      + raw.toLowerCase()/*.replace(/[^\w]+/g, '-')*/
+      + '"'
+      + 'data-level="'
+      + this.getHeading(level)
+      + '"'
+      + '">'
       + text
       + '</h'
       + level
       + '>\n';
   };
-
   Renderer.prototype.hr = function () {
     return '<hr>\n';
   };
