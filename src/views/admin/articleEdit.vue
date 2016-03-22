@@ -4,11 +4,27 @@
       <div class="article-edit-inner">
         <div class="article-edit-control">
           <label>
-            <input type="text" v-model="article.title " name="title">
+            <span>标题: </span>
+            <input type="text" v-model="article.title " name="title" required>
           </label>
           <label>
-            <input type="text" v-model="article.subTitle">
+            <span>子标题: </span>
+            <input type="text" v-model="article.subTitle" name="subTitle" required>
           </label>
+          <label>
+            <span>meta: </span>
+            <input type="text" v-model="article.meta" name="meta" required>
+          </label>
+          <label>
+            <span>标签: </span>
+            <ul class="tags">
+              <li v-for="tag in article.tags">
+                <a href="javascript:void (0)" title="{{tag}}" v-text="tag"></a>
+              </li>
+            </ul>
+          </label>
+          <button type="button" @click="cancel">取消</button>
+          <button type="button" @click="submit">提交</button>
         </div>
         <section class="article-input">
           <label>
@@ -44,12 +60,28 @@
         var articleId = transition.to.params.id;
         ArticleApi.getArticleDetail(articleId).then(result=> {
           result = result.data;
-          this.article = result.data;
+          if (result.data) {
+            this.article = result.data;
+            Notification.success('加载文章内容成功~', 1, null);
+          } else {
+            Notification.error('根据当前id获取不到文章' + articleId, 2, null);
+          }
+        }).catch(err=> {
+          console.log(err)
+          Notification.error('发生错误' + err.toString(), 2, null);
         })
       }
     },
     filters: {
       marked: marked
+    },
+    methods: {
+      cancel: function (ev) {
+
+      },
+      submit: function (ev) {
+
+      }
     }
   }
 </script>

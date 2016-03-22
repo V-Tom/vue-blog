@@ -1,7 +1,7 @@
-article-edit-top = 5rem
+article-edit-top = 6rem
 article-edit-padding = 1rem
 article-edit-middle-line = 1px solid #ccc
-article-control-height = 3rem
+article-control-height = 4rem
 article-control-middle-line = 1px solid #ccc
 .article-edit
   position absolute
@@ -27,6 +27,24 @@ article-control-middle-line = 1px solid #ccc
     position relative
     height article-control-height
     border-bottom article-control-middle-line
+    line-height article-control-height
+    button
+      cursor pointer
+      border-radius .3rem
+      margin 0 .5rem
+    label
+      margin-right 1.4rem
+    input
+      display inline-block
+      font-size 1.4rem
+      height 2.5rem
+      padding .5rem
+      border 1px solid #ccc
+      border-radius 4px
+      transition border-color ease-in-out .15s, box-shadow ease-in-out .15s
+      &:focus
+        border-color #66afe9
+        box-shadow inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
   .article-input
     left 0
     border-right article-edit-middle-line
