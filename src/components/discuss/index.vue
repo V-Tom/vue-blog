@@ -1,5 +1,5 @@
 <template>
-  <div class="discuss-wrap" transition="page-fade" v-show="show">
+  <div class="discuss-wrap" v-show="show">
     <div class="discuss">
       <v-reply-box></v-reply-box>
       <v-reply-list></v-reply-list>
@@ -10,14 +10,8 @@
   export default{
     name: "discuss",
     data(){
-      this.$on('sendArticleInfo', (data) => {
-        setTimeout(()=> {
-          this.show = true;
-        }, 1500);
-        return true;
-      })
       return {
-        show: false
+        show: true
       }
     },
     ready(){

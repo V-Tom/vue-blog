@@ -30,6 +30,11 @@
     ready(){
       this.$watch('ready', ()=> {
         var data = [];
+        data.push({
+          target: "回到顶部~",
+          level: 1,
+          offset: 0
+        });
         [].slice.call(document.querySelector(this.$data.article).querySelectorAll('[data-level]')).forEach(item=> {
           var id = item.getAttribute('id'), level = item.getAttribute('data-level');
           if (id && level) {
@@ -40,6 +45,11 @@
             });
           }
         });
+        data.push({
+          target: "去评论~",
+          level: 1,
+          offset: document.querySelector('.discuss-wrap').offsetTop
+        })
         this.$set('navigation', data);
       });
     },

@@ -12,7 +12,7 @@
         <div class="reply-main">
           <header><b v-text="data.replyUser.name"></b> 评论于
             <time datetime="{{data.replyUser.time.UTCTime}}" title="{{data.replyUser.time.localTime}}"
-                  v-text="data.replyUser.time.MillisecondToDate">
+                  v-text="data.replyUser.time.localTime">
             </time>
           </header>
           <section v-html="data.replyUser.content"></section>
@@ -33,7 +33,7 @@
         this.articleId = articleId;
         setTimeout(() => {
           this.getReplyList(articleId);
-        }, 2500);
+        }, 300);
       });
 
       this.$on('addReplySuccess', function (data) {
@@ -54,9 +54,7 @@
           if (result.data.success) {
             result.data.data.forEach(item=> {
               var replyUser = item.replyUser;
-              debugger;
-              console.info(MillisecondToDate(new Date(replyUser.time.UTCTime).getUTCSeconds()))
-              replyUser.time.MillisecondToDate = MillisecondToDate(new Date(replyUser.time.UTCTime).getUTCSeconds())
+              //replyUser.time.MillisecondToDate = MillisecondToDate(new Date(replyUser.time.UTCTime).getUTCSeconds())
               replyUser.content = emojiDecoding(item.replyUser.content);
             })
             this.replyList = result.data.data;

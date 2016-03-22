@@ -1,3 +1,4 @@
+'use strict';
 const jwt = require('jsonwebtoken');
 var Config = require('../../config');
 let App = {};

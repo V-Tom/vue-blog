@@ -12,6 +12,11 @@ var dbBlog = require('../../config').dbBlog;
 var Json = require('../../mods/jsonWrap');
 //DB Source
 
+const dbBlogAuth = {
+  "user": dbBlog.auth.user,
+  "pwd": dbBlog.auth.pwd
+};
+
 const detailDbSource = {
     "DBName": dbBlog.port,
     "DBCollection": dbBlog.collection.articleDetail
@@ -52,7 +57,7 @@ router.get('/list/', (req, res)=> {
     }
     tags = param.tag ? {"tags": String(param.tag)} : {};
 
-    new DBHelperFind(blogListDbSource).find(tags, query).then(result=> {
+    new DBHelperFind(blogListDbSource, dbBlogAuth).find(tags, query).then(result=> {
       res.status(200).json(result);
     }).catch(err=> {
       res.status(500).json(err);
@@ -70,7 +75,7 @@ router.get('/detail/', (req, res)=> {
   var query = req.query, id, dbQuery;
   id = query.articleId;
   dbQuery = {"articleId": id};
-  new DBHelperFind(detailDbSource).findOne(dbQuery).then(result=> {
+  new DBHelperFind(detailDbSource, dbBlogAuth).findOne(dbQuery).then(result=> {
     if (result.success) {
       res.status(200).json(result);
     }
@@ -96,7 +101,7 @@ router.get('/reply/list', (req, res)=> {
   page = Number(data.page);
   articleId = data.articleId;
   dbQuery = {"articleId": articleId};
-  new DBHelperFind(replyDbSource).find(dbQuery, {
+  new DBHelperFind(replyDbSource, dbBlogAuth).find(dbQuery, {
     skip: limit * (page - 1),
     limit: limit
   }).then(result=> {
@@ -116,7 +121,7 @@ router.post('/reply/add', (req, res)=> {
   var data = req.body;
   var insertUserInfo = ()=> {
     return new Promise((resolve, reject)=> {
-      new DBHelperInsert(replyUserInfoDbSource).insertOne({
+      new DBHelperInsert(replyUserInfoDbSource, dbBlogAuth).insertOne({
         articleDbId: data.articleDbId,
         articleId: data.articleId,
         name: data.replyUser.name,
@@ -132,7 +137,7 @@ router.post('/reply/add', (req, res)=> {
     });
   }, insertReplyContent = ()=> {
     return new Promise((resolve, reject)=> {
-      new DBHelperInsert(replyDbSource).insertOne({
+      new DBHelperInsert(replyDbSource, dbBlogAuth).insertOne({
         "articleDbId": data.articleDbId,
         "articleId": data.articleId,
         "replyTo": data.replyTo,

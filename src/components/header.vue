@@ -7,7 +7,7 @@
         <section class="App_nav_description" data-page="I Am A Full-stack Developer"></section>
         <section class="App_nav_logo">
           <i class="icon icon-logo"></i>
-          <a href="/" data-page="0" title=""></a>
+          <a href="/" data-page="0" title="full stack"></a>
           <button type="button" class="App_nav_toggle" v-on:click.stop="showMenu">
             <span></span>
             <span></span>
@@ -16,12 +16,12 @@
         </section>
         <section class="App_nav_bar">
           <ul>
-            <li><a v-link="{name:'blog'}" data-page="1"><i class="icon icon-blog"></i></a></li>
-            <li><a v-link="{name:'labs'}" data-page="2"><i class="icon icon-labs"></i></a></li>
+            <li><a v-link="{name:'blog'}" data-page="1" title="blog"><i class="icon icon-blog"></i></a></li>
+            <li><a v-link="{name:'labs'}" data-page="2" title="labs"><i class="icon icon-labs"></i></a></li>
           </ul>
           <ul>
-            <li><a v-link="{name:'about'}" data-page="5"><i class="icon icon-me"></i></a></li>
-            <li><a v-link="{name:'message'}" data-page="6"><i class="icon icon-message"></i></a></li>
+            <li><a v-link="{name:'about'}" data-page="3" title="me"><i class="icon icon-me"></i></a></li>
+            <li><a v-link="{name:'message'}" data-page="4" title="message"><i class="icon icon-message"></i></a></li>
           </ul>
         </section>
       </div>

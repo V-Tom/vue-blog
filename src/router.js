@@ -1,13 +1,17 @@
 export default function (router) {
   "use strict";
   router.map({
+
+    //404 page
     '*': {
-      name: '404',
+      name: 'bug',
       component: require('./components/404.vue')
     },
+
+    //router page
     '/': {
       name: "index",
-      component: require('./views/index.vue')
+      component: require('./views/router/index.vue')
     },
     '/blog': {
       name: "blog",
@@ -23,15 +27,27 @@ export default function (router) {
     },
     '/labs': {
       name: "labs",
-      component: require('./views/labs.vue')
+      component: require('./views/router/labs.vue')
     },
     '/about': {
       name: 'about',
-      component: require('./views/about.vue')
+      component: require('./views/router/about.vue')
     },
     '/message': {
       name: 'message',
-      component: require('./views/message.vue')
+      component: require('./views/router/message.vue')
+    },
+
+    //admin page
+    '/admin': {
+      name: "admin",
+      component: require('./views/admin/index.vue'),
+      auth: true
+    },
+    '/admin/articleEdit/:id': {
+      name: "articleEdit",
+      component: require('./views/admin/articleEdit.vue'),
+      auth: true
     }
   });
 }
