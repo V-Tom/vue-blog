@@ -127,9 +127,9 @@ class App extends core {
     //see http://www.runoob.com/mongodb/mongodb-atomic-operations.html
     var updateTypeList = ['$inc', '$set', '$rename', '$mul', '$setOnInsert', '$unset', '$min', '$max', 'currentDate'];
 
-    type && updateTypeList.indexOf(type) !== -1 ?
+    if (type && updateTypeList.indexOf(type) !== -1) {
       defaultUpdateType = type
-      : '$set';
+    }
 
     return new Promise((resolve, reject)=> {
       if (!Utils.isObject(filter) || !Utils.isObject(replaceDoc)) {
@@ -144,7 +144,7 @@ class App extends core {
               var collection = db.collection(_DBCollection);
               collection.findOneAndUpdate(filter, {[defaultUpdateType]: replaceDoc}, currentOptions).then((docs)=> {
                 resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).catch(()=> {
+              }).catch((err)=> {
                 reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
               }).always(()=> {
                 db.close();
@@ -188,8 +188,8 @@ class App extends core {
               var collection = db.collection(_DBCollection);
               collection.findOneAndDelete(filter, currentOptions).then((docs)=> {
                 resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).catch(()=> {
-                reject(Json.error({[dbFindTimeKey]: new Date() - start + 'ms'}));
+              }).catch((err)=> {
+                reject(Json.error(err,{[dbFindTimeKey]: new Date() - start + 'ms'}));
               }).always(()=> {
                 db.close();
               });

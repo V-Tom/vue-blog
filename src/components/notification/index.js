@@ -22,7 +22,7 @@ const notice = function (content, duration, type, onclose) {
     components: {Notification}
   }).$children[0];
 
-  duration = duration * 1000 || 1500;
+  duration = duration * 1000 || 1800;
 
   setTimeout(()=> {
 

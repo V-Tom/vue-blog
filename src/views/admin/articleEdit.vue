@@ -15,16 +15,19 @@
             <span>meta: </span>
             <input type="text" v-model="article.meta" name="meta" required>
           </label>
-          <label>
-            <span>标签: </span>
-            <ul class="tags">
-              <li v-for="tag in article.tags">
-                <a href="javascript:void (0)" title="{{tag}}" v-text="tag"></a>
-              </li>
-            </ul>
-          </label>
-          <button type="button" @click="cancel">取消</button>
-          <button type="button" @click="submit">提交</button>
+          <button type="button" @click.stop="cancel">取消</button>
+          <button type="button" @click.stop="submit">提交</button>
+          <br>
+          <span>标签: </span>
+          <ul class="tags">
+            <li v-for="(index,item) in article.tags" track-by="$index">
+              <a href="javascript:void (0)" title="{{item}}">
+                <span v-text="item" @click.stop="editTags(index)"></span>
+                <i class="icon icon-trash" @click.stop="deleteTags(index)" title="delete"></i>
+              </a>
+            </li>
+          </ul>
+          <button type="button" @click="addTags">添加标签</button>
         </div>
         <section class="article-input">
           <label>
@@ -40,15 +43,14 @@
 </template>
 <script type="es6">
   import marked from '../../libs/markdown/marked'
-  import {ArticleApi} from '../../api'
+  import {ArticleApi,AdminApi} from '../../api'
   import Notification from '../../components/notification'
   export default{
     name: 'article-edit',
     data(){
       return {
-        empty: '',
         article: {
-          content: '##hello world',
+          content: '####读取数据中~:smile:',
         }
       }
     },
@@ -56,19 +58,18 @@
     },
     route: {
       data(transition){
-        //http://127.0.0.1:8080/#!/admin/articleEdit/i89b2l81cak9
         var articleId = transition.to.params.id;
         ArticleApi.getArticleDetail(articleId).then(result=> {
           result = result.data;
           if (result.data) {
             this.article = result.data;
-            Notification.success('加载文章内容成功~', 1, null);
+            Notification.success('加载文章内容成功~');
           } else {
-            Notification.error('根据当前id获取不到文章' + articleId, 2, null);
+            Notification.error('根据当前id获取不到文章' + articleId);
           }
         }).catch(err=> {
           console.log(err)
-          Notification.error('发生错误' + err.toString(), 2, null);
+          Notification.error('发生错误' + err.toString());
         })
       }
     },
@@ -76,11 +77,31 @@
       marked: marked
     },
     methods: {
+      addTags: function () {
+        var tag = window.prompt('请输入想要添加的标签名称~');
+        if (tag != '' && tag !== null) {
+          this.article.tags && this.article.tags.push(tag);
+        }
+      },
+      editTags: function (index) {
+        var tag = window.prompt('请输入想要更改的标签名称~');
+        if (tag != '' && tag !== null) {
+          this.article.tags && this.article.tags.$set(index, tag);
+        }
+      },
+      deleteTags: function (index) {
+        this.article.tags && this.article.tags.splice(index, 1);
+      },
       cancel: function (ev) {
 
       },
       submit: function (ev) {
-
+        ArticleApi.updateArticleDetail(this.article._id, this.article).then((result) => {
+          result = result.data;
+          Notification.success('更新文章成功~\n耗时:' + result.DBTime);
+        }).catch(err=> {
+          Notification.error('更新文章失败~');
+        })
       }
     }
   }

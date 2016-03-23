@@ -1,7 +1,7 @@
 article-edit-top = 6rem
 article-edit-padding = 1rem
 article-edit-middle-line = 1px solid #ccc
-article-control-height = 4rem
+article-control-height = 8
 article-control-middle-line = 1px solid #ccc
 .article-edit
   position absolute
@@ -18,20 +18,28 @@ article-control-middle-line = 1px solid #ccc
   > section
     position absolute
     width 50%
-    top article-control-height
+    top (article-control-height) rem
     bottom 0
     padding article-edit-padding
     overflow-x hidden
     overflow-y auto
   .article-edit-control
     position relative
-    height article-control-height
+    height (article-control-height) rem
     border-bottom article-control-middle-line
-    line-height article-control-height
+    line-height (article-control-height/ 2) rem
+    .tags
+      color #333
+      i
+        cursor pointer
+      a
+        cursor default
+        border-color #ccc
     button
       cursor pointer
       border-radius .3rem
       margin 0 .5rem
+      padding .5rem 1.5rem
     label
       margin-right 1.4rem
     input

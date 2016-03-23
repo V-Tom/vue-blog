@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/3/8.
  */
-import {ArticleResource,ReplyResource,BlogListResource,ToolsResource} from './resources'
+import {ArticleResource,ReplyResource,BlogListResource,ToolsResource,AuthResource,AdminResource} from './resources'
 
 export const BlogApi = {
   getBlogList: function (limit, page, tagName) {
@@ -35,7 +35,7 @@ export const ArticleApi = {
     })
   },
   updateArticleDetail: function (articleId, data) {
-    return ArticleResource.save({
+    return ArticleResource.update({
       articleId: articleId
     }, data)
   }
@@ -64,3 +64,7 @@ export const ToolsApi = {
     })
   }
 };
+
+export const AuthApi = {};
+
+export const AdminApi = {};

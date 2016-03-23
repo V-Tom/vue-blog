@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -14,7 +15,7 @@ var ConfigSession = require('./config').session;
 
 app.set('env', 'development');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
@@ -28,17 +29,22 @@ var allowCrossDomain = function (req, res, next) {
   }
   next();
 };
-
-// uncomment after placing your favicon in /public
+//favicon
 app.use(favicon(path.join(__dirname, 'src', 'favicon.ico')));
-// view engine setup
-app.use(compression());
+//gzip
+app.use(compression({level: 9}));
+//logger
 app.use(logger('dev'));
+//bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+//cookie
 app.use(cookieParser());
+//static
 app.use(express.static(path.join(__dirname)));
+//session
 app.use(session(ConfigSession(MongoStore)));
+//cros
 app.use(allowCrossDomain);
 
 
@@ -47,11 +53,13 @@ var index = require('./routes/index');
 var demoApi = require('./routes/api/demo');
 var blogApi = require('./routes/api/blog');
 var toolsApi = require('./routes/api/tools');
+var adminApi = require('./routes/api/admin');
 
 app.use('/', index);
 app.use('/api/' + apiVersion + '/blog', blogApi);
 app.use('/demo', demoApi);
 app.use('/api/' + apiVersion + '/tools', toolsApi);
+app.use('/api/' + apiVersion + '/admin', adminApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -59,25 +67,20 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 });
-// error handlers
 
-// development error handler
-// will print stacktrace
+
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {
-    res.status(err.status || 500).json({
-      "error": '404 not found-development'
-    }).end();
-  });
-} else {
-  // production error handler
-// no stacktraces leaked to user
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500).json({
-      "error": '404 not found'
-    }).end();
+    res.status(err.status || 500).send(err.stack).end();
   });
 }
+
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500).json({
+    "error": '404 not found'
+  }).end();
+});
+
 
 module.exports = app;
 

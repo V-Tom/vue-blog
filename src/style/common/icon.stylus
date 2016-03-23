@@ -37,13 +37,13 @@
   content "\f118"
 
 .icon-error:before
-  content: "\f071"
-  color rgba(255, 102, 0, 1)
+  conten: "\f071"
 
 .icon-info:before
-  content: "\f05a"
-  color rgba(45, 183, 245, 1)
+  content "\f05a"
 
 .icon-success:before
-  content: "\f058"
-  color rgba(135, 208, 104, 1)
+  content "\f058"
+
+.icon-trash:before
+  content "\f014"

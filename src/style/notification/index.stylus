@@ -4,6 +4,15 @@
   top 5.5rem
   z-index 10000
 
+  .icon-info:before
+    color rgba(45, 183, 245, 1)
+  .icon-error:before
+
+    color rgba(255, 102, 0, 1)
+
+  .icon-success:before
+    color rgba(135, 208, 104, 1)
+    
   .body
     position absolute
     transform translate3d(0, -100%, 0)
