@@ -77,7 +77,7 @@
       return {
         "articleId": null,
         "emoji": false,
-        "contentPlaceholder": "欢迎指出问题~\n暂不支持回复他人评论orz",
+        "contentPlaceholder": "欢迎指出问题~\n请不要发送无用的评论,谢谢\n暂不支持回复他人评论orz",
         "verifyCodePlaceholder": "点击获取验证码~",
         "verifyCode": {
           "code": '',

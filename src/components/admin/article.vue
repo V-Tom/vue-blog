@@ -46,20 +46,19 @@
   import {ArticleApi} from '../../api'
   import Notification from '../../components/notification'
   export default{
-    name: 'article-edit',
+    name: 'articleEdit',
+    prop: ['type', 'articleId'],
     data(){
       return {
         article: {
-          content: '####读取数据中~:smile:',
+          content: '',
         }
       }
     },
     ready(){
-    },
-    route: {
-      data(transition){
-        var articleId = transition.to.params.id;
-        ArticleApi.getArticleDetail(articleId).then(result=> {
+      this.$parent.loader.show = true;
+      if (this.type === 'edit') {
+        ArticleApi.getArticleDetail(this.articleId).then(result=> {
           result = result.data;
           if (result.data) {
             this.article = result.data;
@@ -67,10 +66,24 @@
           } else {
             Notification.error('根据当前id获取不到文章' + articleId);
           }
+          this.$parent.loader.show = false;
         }).catch(err=> {
-          console.log(err)
+          this.$parent.loader.show = false;
           Notification.error('发生错误' + err.toString());
         })
+      } else if (this.type === 'new') {
+        //restor
+        this.article = {
+          content: "####欢迎创建新文章~",
+          title: "",
+          subTitle: "",
+          meta: "",
+          tags: []
+        };
+        this.$parent.loader.show = false;
+      } else {
+        Notification.error('未知的文章类型~');
+        this.$parent.loader.show = false;
       }
     },
     filters: {
@@ -96,17 +109,31 @@
 
       },
       submit: function (ev) {
-        ArticleApi.updateArticleDetail(this.article.articleId, this.article).then((result) => {
-          result = result.data;
-          if (result.success) {
-            Notification.success('更新文章成功~\n耗时:' + result.DBTime);
-          } else {
-            debugger;
-            Notification.error('更新文章失败' + result.err);
-          }
-        }).catch(err=> {
-          Notification.error('更新文章失败~' + err.data.err);
-        })
+        if (this.type === 'edit') {
+          ArticleApi.updateArticleDetail(this.article.articleId, this.article).then((result) => {
+            result = result.data;
+            if (result.success) {
+              Notification.success('更新文章成功~\n耗时:' + result.DBTime);
+            } else {
+              Notification.error('更新文章失败' + result.err);
+            }
+          }).catch(err=> {
+            Notification.error('更新文章失败~' + err.data.err);
+          })
+        } else if (this.type === 'new') {
+          ArticleApi.createArticle(this.article).then(result=> {
+            result = result.data;
+            if (result.success) {
+              Notification.success('创建文章成功~\n耗时:' + result.DBTime);
+            } else {
+              Notification.error('创建文章失败' + result.err);
+            }
+          }).catch(err=> {
+            Notification.error('创建文章失败~' + err.data.err);
+          })
+        } else {
+          Notification.error('未知的文章类型~');
+        }
       }
     }
   }

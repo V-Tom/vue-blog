@@ -5,8 +5,8 @@ const Utils = require('../utils');
 const Json = require('../jsonWrap');
 const dbFindTimeKey = "DBTime";
 class App extends core {
-  constructor(dbSource, auth) {
-    super(dbSource, auth);
+  constructor(dbSource) {
+    super(dbSource);
   }
 
   find(query, cursor) {
@@ -93,7 +93,7 @@ class App extends core {
     });
   };
 
-  findOneAndUpdate(filter, replaceDoc, options, type) {
+  findOneAndUpdate(query, replaceDoc, options, type) {
     var _DBName = this._DBName, _DBCollection = this._DBCollection, currentOptions, start = new Date(),
 
     //默认是 $set 更新文档
@@ -113,7 +113,7 @@ class App extends core {
         // 如果文档不存在是否创建新文档
         upsert: false,
         //When false, returns the updated document rather than the original. The default is true.
-        //如果设置为false，返回更新后的文档而不是新的文档
+        //如果设置为false，返回更新后的文档而不是旧的文档
         returnOriginal: false
       };
 
@@ -132,7 +132,7 @@ class App extends core {
     }
 
     return new Promise((resolve, reject)=> {
-      if (!Utils.isObject(filter) || !Utils.isObject(replaceDoc)) {
+      if (!Utils.isObject(query) || !Utils.isObject(replaceDoc)) {
         reject('filter or  replaceDoc must be an object at line 124');
       } else {
         MongoClient.connect(_DBName, (err, db)=> {
@@ -142,7 +142,7 @@ class App extends core {
           } else {
             this.auth(db).then(()=> {
               var collection = db.collection(_DBCollection);
-              collection.findOneAndUpdate(filter, {[defaultUpdateType]: replaceDoc}, currentOptions).then((docs)=> {
+              collection.findOneAndUpdate(query, {[defaultUpdateType]: replaceDoc}, currentOptions).then((docs)=> {
                 resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
               }).catch((err)=> {
                 reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
@@ -189,7 +189,7 @@ class App extends core {
               collection.findOneAndDelete(filter, currentOptions).then((docs)=> {
                 resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
               }).catch((err)=> {
-                reject(Json.error(err,{[dbFindTimeKey]: new Date() - start + 'ms'}));
+                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
               }).always(()=> {
                 db.close();
               });

@@ -50,9 +50,8 @@ base-transition = .3s 0s all ease-in-out
   left 0
   right 0
   margin auto
-  box-shadow 0 0 4px #c8c8c8
+  box-shadow 0 2px 4px -1px rgba(0, 0, 0, 0.25)
   background rgba(255, 255, 255, .9)
-  border-bottom 1px solid #c8c8c8
   box-sizing border-box
   transition .3s all ease-in-out 0s
 
@@ -201,7 +200,7 @@ base-transition = .3s 0s all ease-in-out
       &:nth-of-type(2)
         float right
         background transparent
-      &>li
+      & > li
         display inline-block
 
   .App_nav_toggle

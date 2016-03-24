@@ -4,8 +4,8 @@ const MongoClient = require('mongodb').MongoClient;
 const Json = require('../jsonWrap');
 const dbFindTimeKey = "DBTime";
 class App extends core {
-  constructor(dbSource, auth) {
-    super(dbSource, auth);
+  constructor(dbSource) {
+    super(dbSource);
   }
 
   insertOne(json) {

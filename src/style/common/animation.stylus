@@ -3,7 +3,7 @@
   animation-play-state running
   animation-delay 0
   animation-timing-function ease
-  animation-duration 200ms
+  animation-duration 500ms
 
 .ani-spinner
   animation: Spinner 700ms infinite linear

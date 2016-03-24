@@ -9,12 +9,12 @@ class App {
     this._extend();
   }
 
-  _isValid(dbSource, auth) {
-    if (dbSource.DBName && dbSource.DBCollection) {
-      this._DBName = dbSource.DBName;
-      this._DBCollection = dbSource.DBCollection;
-      this._DBUser = auth.user || undefined;
-      this._DBUserPwd = auth.pwd || undefined;
+  _isValid(dbSource) {
+    if (dbSource.source.DBName && dbSource.source.DBCollection) {
+      this._DBName = dbSource.source.DBName;
+      this._DBCollection = dbSource.source.DBCollection;
+      this._DBUser = dbSource.auth.user || undefined;
+      this._DBUserPwd = dbSource.auth.pwd || undefined;
     } else {
       throw new SyntaxError('dbSource object isn\'t valid at db.core.js line 17  ')
     }

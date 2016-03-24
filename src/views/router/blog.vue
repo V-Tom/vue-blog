@@ -52,6 +52,8 @@
     },
     route: {
       data(transition){
+        this.$parent.loader.show = false;
+
         var self = this, query = transition.to.query, tagName;
 
         const init = function (tagName) {

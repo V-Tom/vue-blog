@@ -22,7 +22,8 @@ reply-user-info-input-width = 25rem
       z-index 1
       margin .5rem 0
       display block
-      width reply-user-info-input-width
+      width 100%
+      max-width reply-user-info-input-width
       height reply-user-info-input-height
       vertical-align top
       overflow hidden
@@ -139,7 +140,7 @@ reply-user-info-input-width = 25rem
         padding 1.5rem
         width 100%
         max-width 100%
-        min-height 8rem
+        min-height 9rem
         box-shadow none
         outline none
         font-size 1.4rem
@@ -151,9 +152,10 @@ reply-user-info-input-width = 25rem
 
     .verify-code
       position relative
-      width 18rem
+      width 100%
+      max-width 22rem
       height 3.2rem
-      float left
+      display inline-block
       cursor pointer
       background #fff
 
@@ -164,7 +166,6 @@ reply-user-info-input-width = 25rem
 
     input
       display inline-block
-      float left
       height 3.2rem
       padding .3rem
       margin 0 .3rem
@@ -172,7 +173,7 @@ reply-user-info-input-width = 25rem
     button
       display inline-block
       position relative
-      font-size 1.5rem
+      font-size 1.4rem
       outline none
       padding .6rem 2rem
       -webkit-appearance none
@@ -186,3 +187,13 @@ reply-user-info-input-width = 25rem
         position relative
         top .2rem
         opacity 1
+
+/*480*/
+@media (min-width 34em)
+  .discuss-form .discuss-submit
+    .verify-code
+      float left
+
+    input
+      float left
+

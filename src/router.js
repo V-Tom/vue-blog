@@ -44,6 +44,11 @@ export default function (router) {
       component: require('./views/admin/index.vue'),
       auth: true
     },
+    '/admin/article/new': {
+      name: "articleNew",
+      component: require('./views/admin/index.vue'),
+      auth: true
+    },
     '/admin/articleEdit/:id': {
       name: "articleEdit",
       component: require('./views/admin/articleEdit.vue'),

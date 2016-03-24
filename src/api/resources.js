@@ -19,9 +19,8 @@ Vue.http.interceptors.push({
   }
 
 });
-export const ArticleResource = Vue.resource("api/" + apiVersion + "/blog/detail/");
+export const ArticleResource = Vue.resource("api/" + apiVersion + "/blog/article/{type}");
 export const BlogListResource = Vue.resource('api/' + apiVersion + '/blog/list/');
 export const ReplyResource = Vue.resource('api/' + apiVersion + '/blog/reply/{type}');
 export const ToolsResource = Vue.resource('api/' + apiVersion + '/tools/{type}');
 export const AuthResource = Vue.resource('api/' + apiVersion + '/auth/{type}');
-export const AdminResource = Vue.resource('api/' + apiVersion + '/admin/{type}');

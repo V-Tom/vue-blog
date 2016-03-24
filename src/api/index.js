@@ -1,7 +1,5 @@
-/**
- * Created by Administrator on 2016/3/8.
- */
-import {ArticleResource,ReplyResource,BlogListResource,ToolsResource,AuthResource,AdminResource} from './resources'
+'use strict';
+import {ArticleResource,ReplyResource,BlogListResource,ToolsResource,AuthResource} from './resources'
 
 export const BlogApi = {
   getBlogList: function (limit, page, tagName) {
@@ -31,12 +29,19 @@ export const BlogApi = {
 export const ArticleApi = {
   getArticleDetail: function (articleId) {
     return ArticleResource.get({
+      type: "get",
       articleId: articleId
     })
   },
   updateArticleDetail: function (articleId, data) {
     return ArticleResource.update({
+      type: "update",
       articleId: articleId
+    }, data)
+  },
+  createArticle: function (data) {
+    return ArticleResource.save({
+      type: "new"
     }, data)
   }
 };
@@ -65,6 +70,16 @@ export const ToolsApi = {
   }
 };
 
-export const AuthApi = {};
+export const AuthApi = {
+  login: function (data) {
+    return AuthResource.save({
+      type: "login"
+    }, data)
+  },
+  logout: function () {
+    return AuthResource.get({
+      type: "logout"
+    })
+  }
+};
 
-export const AdminApi = {};

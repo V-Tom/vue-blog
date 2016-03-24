@@ -14,6 +14,7 @@
 
     },
     ready(){
+      this.$parent.loader.show = false;
     }
   }
 </script>
