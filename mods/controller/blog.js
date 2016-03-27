@@ -5,6 +5,9 @@ const ObjectId = require('mongodb').ObjectID,
   DBHelperTools = require('../../mods/db/db.tools'),
   dbSource = require('../../config/dbSource');
 
+var config = require('../../config');
+var shell = require('../shell');
+
 const updateArticleViews = function (articleId) {
   return new DBHelperTools(dbSource.blogDetail).updateArticleViews(articleId);
 };
@@ -13,8 +16,22 @@ const getArticleDetail = function (dbQuery) {
   return new DBHelperFind(dbSource.blogDetail).findOne(dbQuery);
 };
 
-const updateArticleDetail = function (dbQuery, options) {
-  return new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, options);
+const updateArticleDetail = function (dbQuery, doc, git) {
+  return new Promise((resolve, reject)=> {
+    new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
+      resolve(result);
+      //10秒后再更新git repo
+      setTimeout(function () {
+        try {
+          shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
+        } catch (ex) {
+          console.error(ex.stack);
+        }
+      }, 10000);
+    }).catch(err=> {
+      reject(err)
+    });
+  });
 };
 
 const insertNewArticle = function (data) {

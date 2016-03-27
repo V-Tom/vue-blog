@@ -19,22 +19,17 @@ class App extends core {
           db.close();
           reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
         } else {
-          this.auth(db).then(()=> {
-            var collection = db.collection(_DBCollection);
-            collection.insertOne(currentData).then(function (result) {
-              resolve(Json.success({
-                  "insertedCount": result.insertedCount,
-                  "_id": String(result.insertedId)
-                },
-                {[dbFindTimeKey]: new Date() - start + 'ms'}), result);
-            }).catch((err)=> {
-              reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}), err);
-            }).always(()=> {
-              db.close();
-            })
-          }).catch(err=> {
+          var collection = db.collection(_DBCollection);
+          collection.insertOne(currentData).then(function (result) {
+            resolve(Json.success({
+                "insertedCount": result.insertedCount,
+                "_id": String(result.insertedId)
+              },
+              {[dbFindTimeKey]: new Date() - start + 'ms'}), result);
+          }).catch((err)=> {
+            reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}), err);
+          }).always(()=> {
             db.close();
-            reject(err);
           })
         }
       })
@@ -51,18 +46,13 @@ class App extends core {
           db.close();
           reject(err);
         } else {
-          this.auth(db).then(()=> {
-            var collection = db.collection(_DBCollection);
-            collection.insertMany(currentData).then(function (result) {
-              resolve(result);
-            }).catch(()=> {
-              reject(err);
-            }).always(()=> {
-              db.close();
-            })
-          }).catch(err=> {
-            db.close();
+          var collection = db.collection(_DBCollection);
+          collection.insertMany(currentData).then(function (result) {
+            resolve(result);
+          }).catch(()=> {
             reject(err);
+          }).always(()=> {
+            db.close();
           })
         }
       })

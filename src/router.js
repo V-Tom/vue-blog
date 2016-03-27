@@ -37,16 +37,10 @@ export default function (router) {
       name: 'message',
       component: require('./views/router/message.vue')
     },
-
     //admin page
     '/admin': {
       name: "admin",
-      component: require('./views/admin/index.vue'),
-      auth: true
-    },
-    '/admin/article/new': {
-      name: "articleNew",
-      component: require('./views/admin/index.vue'),
+      component: require('./views/router/admin.vue'),
       auth: true
     },
     '/admin/articleEdit/:id': {

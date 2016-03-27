@@ -21,41 +21,36 @@ class App extends core {
             db.close();
             reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
           } else {
-            this.auth(db).then(()=> {
-              var collection = db.collection(_DBCollection);
-              if (cursor) {
-                let key, CURSOR;
-                CURSOR = collection.find(query);
-                try {
-                  for (key in cursor) {
-                    if (cursor.hasOwnProperty(key)) {
-                      CURSOR[key](cursor[key])
-                    }
+            var collection = db.collection(_DBCollection);
+            if (cursor) {
+              let key, CURSOR;
+              CURSOR = collection.find(query);
+              try {
+                for (key in cursor) {
+                  if (cursor.hasOwnProperty(key)) {
+                    CURSOR[key](cursor[key])
                   }
-                } catch (ex) {
-                  db.close();
-                  reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
                 }
-                CURSOR.toArray().then((docs) => {
-                  resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-                }).catch((err)=> {
-                  reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-                }).always(()=> {
-                  db.close();
-                });
-              } else {
-                collection.find(query).toArray().then((docs) => {
-                  resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-                }).catch((err)=> {
-                  reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-                }).always(()=> {
-                  db.close();
-                });
+              } catch (ex) {
+                db.close();
+                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
               }
-            }).catch(err=> {
-              db.close();
-              reject(err);
-            });
+              CURSOR.toArray().then((docs) => {
+                resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+              }).catch((err)=> {
+                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+              }).always(()=> {
+                db.close();
+              });
+            } else {
+              collection.find(query).toArray().then((docs) => {
+                resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+              }).catch((err)=> {
+                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+              }).always(()=> {
+                db.close();
+              });
+            }
           }
         });
       }
@@ -74,19 +69,14 @@ class App extends core {
             db.close();
             reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
           } else {
-            this.auth(db).then(()=> {
-              var collection = db.collection(_DBCollection);
-              collection.findOne(query, options).then((docs)=> {
-                resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).catch(()=> {
-                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).always(()=> {
-                db.close();
-              });
-            }).catch(err=> {
+            var collection = db.collection(_DBCollection);
+            collection.findOne(query, options).then((docs)=> {
+              resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).catch(()=> {
+              reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).always(()=> {
               db.close();
-              reject(err);
-            })
+            });
           }
         });
       }
@@ -140,19 +130,14 @@ class App extends core {
             db.close();
             reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
           } else {
-            this.auth(db).then(()=> {
-              var collection = db.collection(_DBCollection);
-              collection.findOneAndUpdate(query, {[defaultUpdateType]: replaceDoc}, currentOptions).then((docs)=> {
-                resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).catch((err)=> {
-                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).always(()=> {
-                db.close();
-              });
-            }).catch(err=> {
+            var collection = db.collection(_DBCollection);
+            collection.findOneAndUpdate(query, {[defaultUpdateType]: replaceDoc}, currentOptions).then((docs)=> {
+              resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).catch((err)=> {
+              reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).always(()=> {
               db.close();
-              reject(err);
-            })
+            });
           }
         });
       }
@@ -184,19 +169,14 @@ class App extends core {
             db.close();
             reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
           } else {
-            this.auth(db).then(()=> {
-              var collection = db.collection(_DBCollection);
-              collection.findOneAndDelete(filter, currentOptions).then((docs)=> {
-                resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).catch((err)=> {
-                reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
-              }).always(()=> {
-                db.close();
-              });
-            }).catch(err=> {
+            var collection = db.collection(_DBCollection);
+            collection.findOneAndDelete(filter, currentOptions).then((docs)=> {
+              resolve(Json.success(docs, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).catch((err)=> {
+              reject(Json.error(err, {[dbFindTimeKey]: new Date() - start + 'ms'}));
+            }).always(()=> {
               db.close();
-              reject(err);
-            })
+            });
           }
         });
       }

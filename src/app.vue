@@ -14,7 +14,6 @@
             :open-header-menu.sync="header.openHeaderMenu"></v-header>
   <router-view></router-view>
   <v-footer></v-footer>
-  <v-player v-if="player.show"></v-player>
   <v-loader :show="loader.show" :text="loader.text"></v-loader>
 </template>
 
@@ -43,13 +42,11 @@
         writeEmojiStyle();
       }
       copyListener();
-      console.info('App.vue Ready !');
     },
     components: {
       'v-header': require('./components/header.vue'),
       'v-footer': require('./components/footer.vue'),
-      'v-loader': require('./components/loader.vue'),
-      'v-player': require('./components/player.vue')
+      'v-loader': require('./components/loader.vue')
     }
   }
 </script>

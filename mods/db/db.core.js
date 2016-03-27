@@ -13,8 +13,6 @@ class App {
     if (dbSource.source.DBName && dbSource.source.DBCollection) {
       this._DBName = dbSource.source.DBName;
       this._DBCollection = dbSource.source.DBCollection;
-      this._DBUser = dbSource.auth.user || undefined;
-      this._DBUserPwd = dbSource.auth.pwd || undefined;
     } else {
       throw new SyntaxError('dbSource object isn\'t valid at db.core.js line 17  ')
     }
@@ -61,6 +59,9 @@ class App {
   };
 
   auth(db) {
+    //TODO 暂时去掉了,没有用到
+    console.warn('db auth is not used');
+    return new Promise().resolve(db);
     return new Promise((resolve, reject)=> {
       db.authenticate(this._DBUser, this._DBUserPwd, (err, result)=> {
         if (err) {

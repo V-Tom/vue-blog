@@ -178,7 +178,6 @@
           ev.stopPropagation();
           return false;
         } else if (this.verifyCode.code.toLowerCase().trim() != user.verifyCode.toLowerCase().trim()) {
-          debugger;
           Notification.error('请输入正确的验证码~!', 2, null);
           ev.preventDefault();
           ev.stopPropagation();

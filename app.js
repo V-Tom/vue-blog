@@ -15,7 +15,7 @@ var ConfigSession = require('./config').session;
 
 app.set('env', 'development');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 //cookie
 app.use(cookieParser());
 //static
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, '/views')));
 //session
 app.use(session(ConfigSession(MongoStore)));
 //cros
@@ -53,13 +53,13 @@ var index = require('./routes/index');
 var demoApi = require('./routes/api/demo');
 var blogApi = require('./routes/api/blog');
 var toolsApi = require('./routes/api/tools');
-var adminApi = require('./routes/api/admin');
+var authApi = require('./routes/api/auth');
 
 app.use('/', index);
-app.use('/api/' + apiVersion + '/blog', blogApi);
 app.use('/demo', demoApi);
+app.use('/api/' + apiVersion + '/blog', blogApi);
 app.use('/api/' + apiVersion + '/tools', toolsApi);
-app.use('/api/' + apiVersion + '/admin', adminApi);
+app.use('/api/' + apiVersion + '/auth', authApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -71,14 +71,24 @@ app.use(function (req, res, next) {
 
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {
-    res.status(err.status || 500).send(err.stack).end();
+    res.status(err.status || 500);
+    console.error(err.message);
+    console.error(err.stack);
+    res.render('error', {
+      title: "Error-dev",
+      message: err.message,
+      error: err
+    });
   });
 }
 
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500).json({
-    "error": '404 not found'
-  }).end();
+  res.status(err.status || 500);
+  res.render('error', {
+    title: 'Error',
+    message: err.message,
+    error: {}
+  });
 });
 
 

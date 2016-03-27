@@ -1,8 +1,5 @@
 <template>
-  <section class="blog-detail-page" listen="articleDetailReady"
-           :class="{'active':openArticleMenu}"
-           transition="page-slide"
-           transition-mode="out-in">
+  <section class="blog-detail-page" :class="{'active':openArticleMenu}" transition="page-slide">
 
     <div class="article-side-btn" :class="{'active':articleDetailReady}">
       <button type="button" class="article-menu" title="article menu" @click.stop="showArticleMenu"></button>
@@ -84,7 +81,7 @@
 
 
             this.$nextTick(()=> {
-              Prism.highlightAll(false);
+              Prism && Prism.highlightAll(false);
 
               //重新设置一次滚动距离
               this.$parent.header.scrollLimit = this.$el.querySelector('header').offsetHeight - 50;

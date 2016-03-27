@@ -15,6 +15,10 @@
             <span>meta: </span>
             <input type="text" v-model="article.meta" name="meta" required>
           </label>
+          <label>
+            <span>git:</span>
+            <input type="text" v-model="git" name="git" required>
+          </label>
           <button type="button" @click.stop="cancel">取消</button>
           <button type="button" @click.stop="submit">提交</button>
           <br>
@@ -51,7 +55,8 @@
       return {
         article: {
           content: '####读取数据中~:smile:',
-        }
+        },
+        git: ''
       }
     },
     ready(){
@@ -64,6 +69,9 @@
           if (result.data) {
             this.article = result.data;
             Notification.success('加载文章内容成功~');
+            this.$nextTick(()=> {
+              Prism && Prism.highlightAll(false);
+            });
           } else {
             Notification.error('根据当前id获取不到文章' + articleId);
           }
@@ -96,12 +104,11 @@
 
       },
       submit: function (ev) {
-        ArticleApi.updateArticleDetail(this.article.articleId, this.article).then((result) => {
+        ArticleApi.updateArticleDetail(this.article.articleId, this.article, this.git).then((result) => {
           result = result.data;
           if (result.success) {
             Notification.success('更新文章成功~\n耗时:' + result.DBTime);
           } else {
-            debugger;
             Notification.error('更新文章失败' + result.err);
           }
         }).catch(err=> {
@@ -112,6 +119,7 @@
   }
 </script>
 <style lang="stylus">
+  @import "../../style/markdown/prism.stylus";
   @import '../../style/admin/article.stylus';
 </style>
 

@@ -63,6 +63,9 @@
           if (result.data) {
             this.article = result.data;
             Notification.success('加载文章内容成功~');
+            this.$nextTick(()=> {
+              Prism && Prism.highlightAll(false);
+            });
           } else {
             Notification.error('根据当前id获取不到文章' + articleId);
           }
@@ -139,6 +142,7 @@
   }
 </script>
 <style lang="stylus">
+  @import "../../style/markdown/prism.stylus";
   @import '../../style/admin/article.stylus';
 </style>
 

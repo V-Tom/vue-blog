@@ -12,7 +12,7 @@
       }
       return result;
     } else {
-      return false;
+      return App._successWrap();
     }
   };
 
@@ -26,14 +26,14 @@
       }
       return result;
     } else {
-      return false;
+      return App._errorWrap();
     }
   };
   App._successWrap = (data)=> {
     return {
       "success": true,
       "timeShown": new Date().getTime(),
-      "data": data
+      "data": data || null
     }
   };
   App._errorWrap = (err)=> {
@@ -41,7 +41,7 @@
       "success": false,
       "timeShown": new Date().getTime(),
       "data": null,
-      "err": err
+      "err": err || null
     }
   };
   module.exports = {

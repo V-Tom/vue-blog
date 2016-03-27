@@ -1,0 +1,34 @@
+.login-box
+  position relative
+  max-width 40rem
+  padding 1rem
+  margin 0 auto
+  padding-top 5rem
+  font-size 1.4rem
+  small
+    margin 1rem 0
+    display block
+    text-align center
+  p
+    font-size 1.4rem
+    text-align center
+    text-transform capitalize
+    margin 1rem 0
+  input
+    display block
+    font-size inherit
+    padding .6rem 1.2rem
+    width 80%
+    border 1px solid #e5e6e7
+    border-radius .3rem
+    margin 1rem auto
+  button
+    display block
+    width 80%
+    margin 0 auto
+    background #1ab394
+    border 1px solid #1ab394
+    border-radius .3rem
+    color #fff
+    padding .6rem 0
+    cursor pointer

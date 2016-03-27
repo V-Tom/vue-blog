@@ -1,43 +1,17 @@
 "use strict";
 
-const FS = require('fs');
 const express = require('express');
 const router = express.Router();
-const ObjectId = require('mongodb').ObjectID,
-  MarkDownHelper = require('../../mods/markdown.helper'),
-  DBHelperFind = require('../../mods/db/db.find'),
-  DBHelperInsert = require('../../mods/db/db.insert');
+const ObjectId = require('mongodb').ObjectID;
 
-var dbBlog = require('../../config').dbBlog;
+
+var controller = require('../../mods/controller/blog');
+var authController = require('../../mods/controller/auth');
 var Json = require('../../mods/jsonWrap');
-//DB Source
-
-const dbBlogAuth = {
-  "user": dbBlog.auth.user,
-  "pwd": dbBlog.auth.pwd
-};
-
-const detailDbSource = {
-    "DBName": dbBlog.port,
-    "DBCollection": dbBlog.collection.articleDetail
-  },
-  blogListDbSource = {
-    "DBName": dbBlog.port,
-    "DBCollection": dbBlog.collection.blogList
-  },
-  replyDbSource = {
-    "DBName": dbBlog.port,
-    "DBCollection": dbBlog.collection.articleReplyList
-  },
-  replyUserInfoDbSource = {
-    "DBName": dbBlog.port,
-    "DBCollection": dbBlog.collection.articleReplyUserInfo
-  };
-
 
 //获取文章列表
 router.get('/list/', (req, res)=> {
-  var param = req.query, limit, page, tags, query = null;
+  var param = req.query, limit, page, options = null, dbQuery = {};
   if (typeof param == 'object') {
     if (param.limit && param.page) {
       limit = Number(param.limit);
@@ -46,7 +20,7 @@ router.get('/list/', (req, res)=> {
         //分页查询错误
         res.status(200).json(json.error("分页查询错误!")).end();
       } else {
-        query = {
+        options = {
           skip: limit * (page - 1),
           limit: limit
         }
@@ -55,9 +29,9 @@ router.get('/list/', (req, res)=> {
       //暂时不允许不存在分页
       res.status(500).json(Json.error("暂时不允许不存在分页的查询!")).end();
     }
-    tags = param.tag ? {"tags": String(param.tag)} : {};
+    dbQuery = param.tag ? {"tags": String(param.tag)} : {};
 
-    new DBHelperFind(blogListDbSource, dbBlogAuth).find(tags, query).then(result=> {
+    controller.article.getArticleList(dbQuery, options).then(result=> {
       res.status(200).json(result);
     }).catch(err=> {
       res.status(500).json(err);
@@ -70,29 +44,60 @@ router.get('/list/', (req, res)=> {
 });
 
 
-//获取和更新文章详情
-router.get('/detail/', (req, res)=> {
+//获取文章详情
+router.get('/article/get', (req, res)=> {
   var query = req.query, id, dbQuery;
   id = query.articleId;
   dbQuery = {"articleId": id};
-  new DBHelperFind(detailDbSource, dbBlogAuth).findOne(dbQuery).then(result=> {
+  controller.article.getArticleDetail(dbQuery).then(result=> {
     if (result.success) {
       res.status(200).json(result);
+      controller.article.updateArticleViews(String(result.data._id));
     }
   }).catch(err=> {
     res.status(500).json(err);
   }).always(()=> {
     res.end();
-  })
-}).post('/detail/', (req, res)=> {
-  var body = req.body;
-  var id = body.articleId, query = {"articleId": id};
-  res.status(200).json({
-    "error": "文章内容更新尚未完成"
   });
-
 });
 
+//更新文章详情
+router.put('/article/update', (req, res)=> {
+  authController.auth.authAdmin().then(result=> {
+    if (req.session.name === result.data.name && req.session.pwd === result.data.pwd) {
+      var postData = req.body.data, git = req.body.git, articleId = postData._id;
+      delete postData._id;
+      controller.article.updateArticleDetail({"_id": ObjectId(articleId)}, postData, git).then(result=> {
+        res.status(200).json(result)
+      }).catch(err=> {
+        res.status(500).json(err);
+      }).always(()=> {
+        res.end();
+      });
+    } else {
+      res.status(403).json(Json.error("未知用户权限")).end();
+    }
+  }).catch(err=> {
+    res.status(403).json(Json.error("查询用户权限错误")).end();
+  });
+});
+
+//创建新文章
+router.post('/article/new', (req, res)=> {
+  authController.auth.authAdmin().then(result=> {
+    if (req.session.name === result.data.name && req.session.pwd === result.data.pwd) {
+    } else {
+      controller.article.insertNewArticle(req.body).then(result=> {
+        res.status(200).json(Json.success("创建文章成功")).end();
+      }).catch(err=> {
+        res.status(500).json(Json.success("创建文章失败")).end();
+      });
+      res.status(403).json(Json.error("未知用户权限")).end();
+    }
+  }).catch(err=> {
+    res.status(403).json(Json.error("查询用户权限错误")).end();
+  })
+});
 
 //获取文章的评论列表
 router.get('/reply/list', (req, res)=> {
@@ -101,7 +106,7 @@ router.get('/reply/list', (req, res)=> {
   page = Number(data.page);
   articleId = data.articleId;
   dbQuery = {"articleId": articleId};
-  new DBHelperFind(replyDbSource, dbBlogAuth).find(dbQuery, {
+  controller.reply.getReply(dbQuery, {
     skip: limit * (page - 1),
     limit: limit
   }).then(result=> {
@@ -118,18 +123,9 @@ router.get('/reply/list', (req, res)=> {
 
 //对文章进行评论
 router.post('/reply/add', (req, res)=> {
-  var data = req.body;
   var insertUserInfo = ()=> {
     return new Promise((resolve, reject)=> {
-      new DBHelperInsert(replyUserInfoDbSource, dbBlogAuth).insertOne({
-        articleDbId: data.articleDbId,
-        articleId: data.articleId,
-        name: data.replyUser.name,
-        time: data.replyUser.time,
-        email: data.replyUser.email,
-        site: data.replyUser.site,
-        ip: req.ip
-      }).then(result=> {
+      controller.reply.insertReplyUser(req).then(result=> {
         resolve(result)
       }).catch(err=> {
         reject(err);
@@ -137,17 +133,7 @@ router.post('/reply/add', (req, res)=> {
     });
   }, insertReplyContent = ()=> {
     return new Promise((resolve, reject)=> {
-      new DBHelperInsert(replyDbSource, dbBlogAuth).insertOne({
-        "articleDbId": data.articleDbId,
-        "articleId": data.articleId,
-        "replyTo": data.replyTo,
-        "replyUser": {
-          "content": data.replyUser.content,
-          "name": data.replyUser.name,
-          "time": data.replyUser.time,
-          "avatar": data.replyUser.avatar
-        }
-      }).then(result=> {
+      controller.reply.insertReply(req).then(result=> {
         resolve(result)
       }).catch(err=> {
         reject(err);

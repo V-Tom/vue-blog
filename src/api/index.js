@@ -33,11 +33,14 @@ export const ArticleApi = {
       articleId: articleId
     })
   },
-  updateArticleDetail: function (articleId, data) {
+  updateArticleDetail: function (articleId, data, git) {
     return ArticleResource.update({
       type: "update",
       articleId: articleId
-    }, data)
+    }, {
+      data: data,
+      git: git
+    })
   },
   createArticle: function (data) {
     return ArticleResource.save({

@@ -1,5 +1,3 @@
 module.exports = {
-  gitTools: {
-    upload: require('./tools/gitUpload')
-  }
+  git: require('./git')
 };

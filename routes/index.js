@@ -1,11 +1,25 @@
 const express = require('express');
 const router = express.Router();
 var Config = require('../config');
-var FS = require('fs');
 
 
-/* GET home page. */
+/* HOME PAGE */
 router.get('/', function (req, res, next) {
-  return res.sendFile(__dirname + '/index.html')
+  res.render('index', {
+    title: Config.app.routerTitle.index
+  })
 });
+
+router.get('/404', (req, res)=> {
+  res.render('404', {
+    title: Config.app.routerTitle.notFound
+  });
+});
+
+router.get('error', (req, res)=> {
+  res.render('error', {
+    title: Config.app.routerTitle.error
+  });
+});
+
 module.exports = router;
