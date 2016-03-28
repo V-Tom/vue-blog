@@ -19,8 +19,10 @@
 
 <script type="es6">
   import {copyListener,writeEmojiStyle} from './libs/utils/funny'
+  import store from './vuex/store'
   export default {
     name: "app",
+    store,
     data () {
       return {
         loader: {

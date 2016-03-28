@@ -4,7 +4,7 @@ var webpack = require("webpack");
 var path = require('path');
 
 
-const entry = ['./src/main.js'];
+const entry = ['./src/index.js'];
 const plugins = [
   //提交公用的js文件到common.js文件中
   //new CommonsChunkPlugin('common.js'),
@@ -83,7 +83,11 @@ module.exports = {
   },
   resolve: {
     // require时省略的扩展名，如：require('module') 不需要module.js
-    extension: ['', '.js']
+    extension: ['', '.js'],
+    alias: {
+      "stylusResource": path.resolve(__dirname, '../src/style'),
+      "componentsResource": path.resolve(__dirname, '../src/components')
+    }
   },
   externals: {
     jquery: false
