@@ -1,7 +1,7 @@
 <style>
 </style>
 <template>
-  <header class="App_header" v-scroll="" v-bind:class="{'active':disable,'open':openHeaderMenu}">
+  <header class="App_header" v-scroll="scroll" v-bind:class="{'active':header.disable,'open':header.openHeaderMenu}">
     <nav class="App_header_container">
       <div class="App_header_body container">
         <section class="App_nav_description" data-page="I Am A Full-stack Developer"></section>
@@ -28,20 +28,21 @@
     </nav>
   </header>
 </template>
-<script>
+<script type="es6">
   'use strict';
   import '../libs/vue/vue-scroll'
+  import {showHeader,hideHeader} from '../vuex/actions'
   export default{
     name: "header",
-    props: ["scrollLimit", "disable", "openHeaderMenu"],
-    data(){
-      return {}
-    },
-    ready(){
+    vuex: {
+      getters: {
+        header: (state)=>state.header
+      },
+      actions: {showHeader, hideHeader}
     },
     methods: {
-      scroll: function () {
-
+      scroll: function (isShow) {
+        isShow ? this.showHeader() : this.hideHeader();
       },
       showMenu: function () {
         this.openHeaderMenu = !this.openHeaderMenu;

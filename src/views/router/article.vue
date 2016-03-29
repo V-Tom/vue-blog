@@ -37,11 +37,7 @@
 
 <script type="es6">
   'use strict';
-  import {ArticleApi} from '../../api'
-  import {getArticleDetail} from '../../vuex/actions'
-  import marked from '../../libs/markdown/marked'
-  import Prism from '../../libs/markdown/prism'
-  import Notification from '../../components/notification'
+  import {getArticleDetail,setHeaderLimit} from '../../vuex/actions'
   import '../../libs/vue/vue-scrollSpy'
 
   import discuss from'../../components/discuss/index.vue'
@@ -59,28 +55,23 @@
         }
       },
       actions: {
-        getArticleDetail
+        getArticleDetail, setHeaderLimit
       }
     },
     ready(){
-      //header是否监听滚动和滚动距离
-      this.$parent.header.disable = true;
-      this.$parent.header.scrollLimit = this.$el.querySelector('header').offsetHeight;
-
-      window.scrollTo(0, 0);
+      this.setHeaderLimit(this.$el.querySelector('header').offsetHeight - 50)
       console.info('article.vue Ready!')
     },
     route: {
       data(transition){
 
         var articleId = transition.to.params.articleId;
-        this.$parent.loader.show = true;
+        //this.$parent.loader.show = true;
 
         this.getArticleDetail(articleId, function () {
-          this.$parent.loader.show = false;
           this.$nextTick(()=> {
             //重新设置一次滚动距离
-            this.$parent.header.scrollLimit = this.$el.querySelector('header').offsetHeight - 50;
+            //this.$parent.header.scrollLimit = this.$el.querySelector('header').offsetHeight - 50;
 
             //setTimeout(function () {
             //  this.$parent.loader.show = false;

@@ -38,9 +38,9 @@ sync(vueStore, router);
 router.beforeEach(transition => {
 
   //header是否监听滚动和滚动距离和是否打开小屏幕下的header菜单
-  transition.to.router.app.header.scrollLimit = 0;
-  transition.to.router.app.header.disable = false;
-  transition.to.router.app.header.openHeaderMenu = false;
+  //transition.to.router.app.header.scrollLimit = 0;
+  //transition.to.router.app.header.disable = false;
+  //transition.to.router.app.header.openHeaderMenu = false;
   if (transition.to.auth) {
     transition.next();
     console.info('当前路由需要进行身份验证!');

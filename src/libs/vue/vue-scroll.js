@@ -20,15 +20,19 @@ void function () {
   const throttle = function () {
     return function () {
       var directive = this;
-      if (directive.vm.scrollLimit) {
-        directive.vm.disable = directive.vm.scrollReverse ? getScrollTop() >= directive.vm.scrollLimit : getScrollTop() < directive.vm.scrollLimit;
-        directive.vm.$get(directive.expression);
+      if (directive.vm.header.scrollLimit) {
+        var isShow = getScrollTop() >= directive.vm.header.scrollLimit;
+        if (isShow !== directive.cache) {
+          directive.cache = isShow;
+          directive.vm.$get(directive.expression).call(directive, getScrollTop() >= directive.vm.header.scrollLimit);
+        }
       }
     }
   };
   Vue.directive('scroll', {
     doBind: function () {
       var directive = this;
+      directive.cache = false;
       directive.scrollListener = throttle();
       directive.scrollEventTarget = getScrollEventTarget();
       directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener.bind(directive), false);

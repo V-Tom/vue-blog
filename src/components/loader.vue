@@ -1,5 +1,5 @@
 <template>
-  <div class="v-spinner" v-if="show">
+  <div class="v-spinner" v-if="loader.show">
     <div class="v-ring-container">
       <section class="v-ring v-ring-1"></section>
       <section class="v-ring v-ring-2"></section>
@@ -7,20 +7,14 @@
   </div>
 </template>
 
-<script>
+<script type="es6">
   export default {
     name: 'loader',
-    replace: true,
-    props: {
-      show: {
-        type: Boolean,
-        default: true
-      },
-      text: {
-        type: String,
-        default: 'loading...'
+    vuex: {
+      getters: {
+        loader: (state)=>state.loader
       }
-    }
+    },
   }
 </script>
 

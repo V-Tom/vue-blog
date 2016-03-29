@@ -11,10 +11,8 @@
 <script type="es6">
   export default{
     data(){
-
     },
     ready(){
-      this.$parent.loader.show = false;
     }
   }
 </script>

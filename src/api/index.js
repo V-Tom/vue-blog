@@ -16,13 +16,6 @@ export const BlogApi = {
       });
     }
   },
-  getBlogListByTag: function (limit, page, tag) {
-    return BlogListResource.get({
-      limit: limit,
-      page: page,
-      tag: tag
-    })
-  },
   getBlogListLimit: 10
 };
 

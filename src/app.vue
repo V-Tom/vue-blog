@@ -10,11 +10,10 @@
   }
 </style>
 <template>
-  <v-header :scroll-limit.sync="header.scrollLimit" :disable.sync="header.disable"
-            :open-header-menu.sync="header.openHeaderMenu"></v-header>
+  <v-header></v-header>
   <router-view></router-view>
   <v-footer></v-footer>
-  <v-loader :show="loader.show" :text="loader.text"></v-loader>
+  <v-loader></v-loader>
 </template>
 
 <script type="es6">
@@ -23,22 +22,6 @@
   export default {
     name: "app",
     store,
-    data () {
-      return {
-        loader: {
-          show: false,
-          text: 'loading...'
-        },
-        player: {
-          show: false
-        },
-        header: {
-          scrollLimit: 0,
-          disable: true,
-          openHeaderMenu: false
-        }
-      }
-    },
     ready(){
       if (document.querySelectorAll('head style[data-type="emoji"]').length === 0) {
         writeEmojiStyle();
