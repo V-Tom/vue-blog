@@ -1,9 +1,9 @@
 <template>
-  <section class="blog-detail-page" :class="{'active':article.openArticleMenu}" transition="page-slide">
+  <section class="blog-detail-page" :class="{'active':article.articleMenu}" transition="page-slide">
 
     <div class="article-side-btn" :class="{'active':article.articleDetailReady}">
       <button type="button" class="article-menu" title="article menu"
-              @click.stop="showArticleMenu"></button>
+              @click.stop="openArticleMenu"></button>
     </div>
 
     <div class="article-sidebar">
@@ -12,7 +12,7 @@
       </section>
     </div>
 
-    <div class="article-content-wrapper" @click.stop="hideArticleMenu">
+    <div class="article-content-wrapper" @click.stop="ArticleMenuHide">
       <header class="article-intro-container" :style="{backgroundImage:'url('+ article.detail.intro.pic  +')'}">
         <section class="article-intro-mask"></section>
         <section class="article-intro-body container">
@@ -30,14 +30,14 @@
       <div class="markdown-wrapper">
         <article class="markdown container article-content" v-html="article.detail.content"></article>
       </div>
+      <discuss></discuss>
     </div>
-    <discuss></discuss>
   </section>
 </template>
 
 <script type="es6">
   'use strict';
-  import {getArticleDetail,setHeaderLimit} from '../../vuex/actions'
+  import {getArticleDetail,setHeaderLimit,openArticleMenu,hideArticleMenu} from '../../vuex/actions'
   import '../../libs/vue/vue-scrollSpy'
 
   import discuss from'../../components/discuss/index.vue'
@@ -55,7 +55,7 @@
         }
       },
       actions: {
-        getArticleDetail, setHeaderLimit
+        getArticleDetail, setHeaderLimit, openArticleMenu, hideArticleMenu
       }
     },
     ready(){
@@ -68,32 +68,21 @@
         var articleId = transition.to.params.articleId;
         //this.$parent.loader.show = true;
 
-        this.getArticleDetail(articleId, function () {
+        this.getArticleDetail(articleId, function (article) {
           this.$nextTick(()=> {
-            //重新设置一次滚动距离
-            //this.$parent.header.scrollLimit = this.$el.querySelector('header').offsetHeight - 50;
-
-            //setTimeout(function () {
-            //  this.$parent.loader.show = false;
-            //  this.articleDetailReady = true;
-            //  //向下面广播信息
-            //  this.$broadcast('sendArticleInfo', {
-            //    "articleId": result.data.articleId,
-            //    "articleDbId": result.data._id
-            //  });
-            //}.bind(this), 300);
-
+            //向下面广播信息
+            this.$broadcast('sendArticleInfo', {
+              "articleId": article.articleId,
+              "articleDbId": article._id
+            });
           })
         }.bind(this));
       }
     },
     methods: {
-      showArticleMenu: function (event) {
-        this.openArticleMenu = !this.openArticleMenu;
-      },
-      hideArticleMenu: function (event) {
-        if (this.openArticleMenu == true) {
-          this.openArticleMenu = false;
+      ArticleMenuHide: function () {
+        if (this.article.articleMenu) {
+          this.hideArticleMenu();
         }
       }
     }

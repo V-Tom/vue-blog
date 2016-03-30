@@ -1,10 +1,10 @@
 <style>
   @font-face {
     font-family: fontAwesome;
-    src: url("http://7xiqgq.com1.z0.glb.clouddn.com/static/fonts/FontAwesome.otf");
-    src: url("http://7xiqgq.com1.z0.glb.clouddn.com/static/fonts/fontawesome-webfont.eot");
-    src: url("http://7xiqgq.com1.z0.glb.clouddn.com/static/fonts/fontawesome-webfont.ttf");
-    src: url("http://7xiqgq.com1.z0.glb.clouddn.com/static/fonts/fontawesome-webfont.woff");
+    src: url("http://cdn.t-tom.me/static/fonts/FontAwesome.otf");
+    src: url("http://cdn.t-tom.me/static/fonts/fontawesome-webfont.eot");
+    src: url("http://cdn.t-tom.me/static/fonts/fontawesome-webfont.ttf");
+    src: url("http://cdn.t-tom.me/static/fonts/fontawesome-webfont.woff");
     font-weight: normal;
     font-style: normal;
   }

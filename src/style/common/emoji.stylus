@@ -1,5 +1,6 @@
-emoji-cdn-url = "http://7xiqgq.com1.z0.glb.clouddn.com/static/image/tools/emoji.png"
-emoji-line-number = 7
+emoji-cdn-url = "http://cdn.t-tom.me/static/images/tools/emoji.png"
+emoji-line-max-number = 7
+emoji-line-min-number = 4
 
 .emoji-face
   display inline-block
@@ -15,7 +16,8 @@ emoji-line-number = 7
   box-shadow 2px 3px 10px rgba(0, 0, 0, 0.6)
   transition all 300ms
   transform-origin 100% 50%
-  width 300px
+  width auto
+  max-width 30rem
   height auto
   transform translate3d(0, 0, 0)
   z-index 1000
@@ -40,7 +42,7 @@ emoji-line-number = 7
       float left
       font-size 0
       text-align center
-      width (100 / emoji-line-number) %
+      width (100 / emoji-line-max-number) %
       height 40px
       line-height 40px
       transition all 300ms ease

@@ -3,7 +3,7 @@
     <section class="discuss-content">
       <a class="avatar" href="javascript:void(0)" @click="changeAvatar">
         <img
-          src="http://7xiqgq.com1.z0.glb.clouddn.com/static/images/userAvatar/avatar-1.jpg?imageView2/1/w/50/h/50"/>
+          src="http://cdn.t-tom.me/static/images/userAvatar/avatar-1.jpg"/>
       </a>
       <div class="discuss-content-body">
             <textarea debounce="500" v-model="discuss.replyUser.content" name="message"
@@ -92,7 +92,7 @@
             "name": null,
             "email": null,
             "site": '',
-            "avatar": "http://7xiqgq.com1.z0.glb.clouddn.com/static/images/userAvatar/avatar-1.jpg?imageView2/1/w/50/h/50",
+            "avatar": "http://cdn.t-tom.me/static/images/userAvatar/avatar-1.jpg",
             "time": {
               "localTime": null,
               "UTCTime": null
