@@ -11,42 +11,31 @@ export default function (router) {
     //router page
     '/': {
       name: "index",
-      component: require('./views/router/index.vue')
+      component: require('./views/index.vue')
     },
     '/blog': {
       name: "blog",
-      component: require('./views/router/blog.vue')
+      component: require('./views/blog.vue')
     },
     '/blog/:articleId': {
       name: "articleDetail",
-      component: require('./views/router/article.vue')
+      component: require('./views/article.vue')
     },
     '/blog?tag=/:tagName/': {
       name: "tag",
-      component: require('./views/router/blog.vue')
+      component: require('./views/blog.vue')
     },
     '/labs': {
       name: "labs",
-      component: require('./views/router/labs.vue')
+      component: require('./views/labs.vue')
     },
     '/about': {
       name: 'about',
-      component: require('./views/router/about.vue')
+      component: require('./views/about.vue')
     },
     '/message': {
       name: 'message',
-      component: require('./views/router/message.vue')
-    },
-    //admin page
-    '/admin': {
-      name: "admin",
-      component: require('./views/router/admin.vue'),
-      auth: true
-    },
-    '/admin/articleEdit/:id': {
-      name: "articleEdit",
-      component: require('./views/admin/articleEdit.vue'),
-      auth: true
+      component: require('./views/message.vue')
     }
   });
 }

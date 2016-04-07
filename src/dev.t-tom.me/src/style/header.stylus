@@ -1,0 +1,213 @@
+base-transition = .3s 0s all ease-in-out
+.App_header
+  position fixed
+  top 0
+  left 0
+  right 0
+  user-select none
+  height 50px
+  z-index 9999
+  animation-delay .3s
+  animation-fill-mode both
+  animation-timing-function ease-in-out
+
+/*小屏幕下打开菜单*/
+.App_header.open
+
+  .App_nav_bar
+    display block
+
+  .App_nav_toggle
+
+    span
+
+      &:nth-of-type(3)
+        transform translate(0, -3px) rotate(-45deg)
+
+      &:nth-of-type(1)
+        transform translate(0, 3px) rotate(45deg)
+
+      &:nth-of-type(2)
+        display none
+
+/*article router active*/
+.App_header.active
+  .App_header_container
+    background transparent
+    border-color transparent
+    box-shadow none
+  a
+    color #fff
+
+  .App_nav_description
+    color #fff
+
+/*base styles*/
+.App_header_container
+  position relative
+  height 50px
+  border-top 2px solid #15a4fa
+  left 0
+  right 0
+  margin auto
+  box-shadow 0 2px 4px -1px rgba(0, 0, 0, 0.25)
+  background rgba(255, 255, 255, .9)
+  box-sizing border-box
+  transition .3s all ease-in-out 0s
+
+.App_header_body
+  font-size 1.5rem
+  height 48px
+  line-height 48px
+  transition .3s all 0s ease-in-out
+  padding 0
+  i
+    display inline-block
+  a
+    transition base-transition
+    display block
+    color #fff
+    height 48px
+    line-height 48px
+    font-size 1.5rem
+    text-align center
+
+    &:after
+      content attr(data-page)
+      text-transform capitalize
+
+    &:hover
+      color #f70
+
+    &.v-link-active
+      color #f70
+
+.App_nav_logo
+  padding 0 1.5rem
+  font-size 1.6rem
+  a
+    display inline-block
+    color #333
+
+/*中小屏幕下的base description*/
+.App_nav_description
+  position absolute
+  top 0
+  height inherit
+  line-height 48px
+  text-align center
+  font-size 1.2rem
+  left 0
+  right 0
+  display none
+  text-transform capitalize
+  text-shadow 0 1px 1px 1px #ccc
+  transition .3s all 0s ease-in-out
+  margin 0 35%
+
+.App_nav_description:after
+  content attr(data-page)
+
+/*小屏幕下的toggle button*/
+.App_nav_toggle
+  position relative
+  height 3.6rem
+  float right
+  padding 10px 10px
+  background-image none
+  border 1px solid transparent
+  border-radius 4px
+  display block
+  margin-top 4px
+  background-color #333
+  vertical-align middle
+  cursor pointer
+  transition all 400ms
+
+  span
+    transition 300ms all ease-in-out
+
+  &:active
+    top -1px
+
+.App_nav_toggle span
+  display block
+  width 22px
+  height 2px
+  border-radius 1px
+  background #fff
+  transition .2s all 0s ease-in-out
+
+.App_nav_toggle span + span
+  margin-top 4px
+
+/*内部菜单main*/
+.App_nav_bar
+  background #000
+  display none
+
+.extra_nav li a
+  font-size 1.3rem
+
+.App_player_box
+  display none
+
+/*480*/
+@media (min-width 34em)
+
+  .App_nav_logo
+    margin 0 10px
+
+  .App_header_body
+    a
+      padding 0 10px
+
+/*480~720*/
+@media (min-width 34em) and (max-width 48em)
+  .App_header_body
+    padding 0 1.5rem
+    a
+      color #fff
+
+  .App_nav_logo
+    a
+      color #000
+    i
+      display none
+
+  .App_nav_description
+    display block
+
+/*720*/
+@media (min-width 48em)
+  .App_header_body
+    i
+      display none
+    a
+      color #000
+
+  .App_nav_logo
+    padding 0
+    float left
+
+  .App_nav_bar
+    display block
+    background transparent
+    ul
+      &:nth-of-type(1)
+        float left
+        background transparent
+      &:nth-of-type(2)
+        float right
+        background transparent
+      & > li
+        display inline-block
+
+  .App_nav_toggle
+    display none
+
+/*960*/
+//@media (min-width 62em)
+
+/*1140*/
+//@media (min-width 75em)

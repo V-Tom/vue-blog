@@ -1,0 +1,21 @@
+[2016-04-07 23:23:27.011] [ERROR] serverError - MongoError
+[2016-04-07 23:23:27.012] [ERROR] serverError - getaddrinfo ENOTFOUND undefined undefined:27017
+[2016-04-07 23:23:27.012] [ERROR] serverError - Error: getaddrinfo ENOTFOUND undefined undefined:27017
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+[2016-04-07 23:23:27.012] [ERROR] serverError - 
+
+[2016-04-07 23:24:21.866] [ERROR] serverError - MongoError
+[2016-04-07 23:24:21.866] [ERROR] serverError - getaddrinfo ENOTFOUND undefined undefined:27017
+[2016-04-07 23:24:21.867] [ERROR] serverError - Error: getaddrinfo ENOTFOUND undefined undefined:27017
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+[2016-04-07 23:24:21.867] [ERROR] serverError - 
+
+[2016-04-07 23:27:11.127] [ERROR] serverError - MongoError
+[2016-04-07 23:27:11.127] [ERROR] serverError - getaddrinfo ENOTFOUND undefined undefined:27017
+[2016-04-07 23:27:11.127] [ERROR] serverError - Error: getaddrinfo ENOTFOUND undefined undefined:27017
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+[2016-04-07 23:27:11.127] [ERROR] serverError - 
+

@@ -9,13 +9,13 @@ const compression = require('compression');
 var app = express();
 
 app.set('env', 'development');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
 //favicon
-app.use(favicon(path.join(__dirname, 'src', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../src', 'favicon.ico')));
 //gzip
 app.use(compression({level: 9}));
 //logger
@@ -24,7 +24,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //static
-app.use(express.static(path.join(__dirname, '/views')));
+app.use('/static/dist', express.static(path.join(__dirname, '../dist')));
 
 //custom router
 var index = require('../routes/index');

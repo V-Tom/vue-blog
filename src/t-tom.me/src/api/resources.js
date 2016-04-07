@@ -2,9 +2,10 @@
 import Vue from 'vue'
 import  VueResource from 'vue-resource'
 var apiVersion = require('../../config').apiVersion;
+var apiServer = require('../../config').apiServer;
 Vue.use(VueResource);
 
-Vue.http.options.root = 'http://127.0.0.1:8000';
+Vue.http.options.root = apiServer;
 Vue.http.options.crossOrigin = true;
 Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
 

@@ -8,19 +8,19 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const apiVersion = require('../config').apiVersion;
 
-const apiVersion = 'v1';
-
-const app = express();
-const ConfigSession = require('../config').session;
+var app = express();
+var ConfigSession = require('../config').session;
 
 app.set('env', 'development');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
-const allowCrossDomain = function (req, res, next) {
+var allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -29,7 +29,6 @@ const allowCrossDomain = function (req, res, next) {
   }
   next();
 };
-
 //favicon
 app.use(favicon(path.join(__dirname, '../src', 'favicon.ico')));
 //gzip
@@ -42,11 +41,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 //cookie
 app.use(cookieParser());
 //static
-app.use(express.static(path.join(__dirname, '/views')));
+//app.use(express.static(path.join(__dirname, '/views')));
 //session
 app.use(session(ConfigSession(MongoStore)));
-//# Add common headers to all requests
-app.all('*', allowCrossDomain);
+//cros
+app.use(allowCrossDomain);
 
 
 //custom router
@@ -74,12 +73,12 @@ if (app.get('env') === 'development') {
     if (err.status != 404) {
       console.error(err.message);
       console.error(err.stack);
-      res.render('error', {
-        title: "Error-dev",
-        message: err.message,
-        error: err
-      });
     }
+    res.render('error', {
+      title: "Error-dev",
+      message: err.message,
+      error: err
+    });
     next();
   });
 }
@@ -87,7 +86,7 @@ if (app.get('env') === 'development') {
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
-    title: '啊哦,发生错误了~',
+    title: '啊哦,发生错误了~' + err.status || 500,
     message: err.message,
     error: {}
   });

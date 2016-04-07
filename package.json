@@ -4,9 +4,11 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "api-server": "node ./src/api.t-tom.me/server/index.js",
-    "webpack-dev": "webpack-dev-server --content-base ./src/t-tom.me/ --display-error-details --inline --hot --host 0.0.0.0 --port:8080 --config ./src/t-tom.me/build/webpack.dev.config.js",
-    "webpack-build": "webpack --progress --colors  --content-base ./src/t-tom.me/ --display-error-details --hide-modules  --config ./src/t-tom.me/build/webpack.prod.config.js"
+    "api-server": "supervisor ./src/api.t-tom.me/server/index.js",
+    "webpack-base-dev": "webpack-dev-server --content-base ./src/t-tom.me/ --display-error-details --inline --hot --host 0.0.0.0 --port:8080 --config ./src/t-tom.me/build/webpack.dev.config.js",
+    "webpack-base-build": "webpack --progress --colors  --content-base ./src/t-tom.me/ --display-error-details --hide-modules  --config ./src/t-tom.me/build/webpack.prod.config.js",
+    "webpack-dev-dev": "webpack-dev-server --content-base ./src/dev.t-tom.me/ --display-error-details --inline --hot --host 0.0.0.0 --port:9090 --config ./src/dev.t-tom.me/build/webpack.dev.config.js",
+    "webpack-dev-build": "webpack --progress --colors  --content-base ./src/dev.t-tom.me/ --display-error-details --hide-modules  --config ./src/dev.t-tom.me/build/webpack.prod.config.js"
   },
   "dependencies": {
     "assert": "^1.3.0",

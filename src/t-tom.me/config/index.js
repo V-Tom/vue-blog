@@ -1,11 +1,10 @@
-//CONFIG
+//base site CONFIG
 "use strict";
-const apiVersion = "v1";
+
+const config = require('../../../config');
+
 module.exports = {
-  root: ".",
-  siteDomain: "api.t-tom.me",
-  host: "120.0.0.1",
-  port: "4000",
-  apiVersion: apiVersion,
-  env: "development"
+  app: config.app.subDomain.base,
+  apiServer: config.app.subDomain.api.domain,
+  apiVersion: config.apiVersion
 };

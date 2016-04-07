@@ -1,0 +1,13 @@
+font-stack = Helvetica, sans-serif
+primary-color = #999
+body
+  font 100% font-stack
+  color primary-color
+
+a
+  color #000
+  text-decoration none
+  transition .3s all 0s ease-in-out
+
+a.v-link-active
+  color #f00

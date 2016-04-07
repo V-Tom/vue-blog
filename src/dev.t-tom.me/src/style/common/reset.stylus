@@ -1,0 +1,125 @@
+base-font = 62.5% \/1.42857143 -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif
+base-color = #333
+base-background = #fff
+
+body-font-size = 1.2rem
+
+code-font-family = Menlo, Monaco, Consolas, "Courier New", monospace
+code-color = #c7254e
+code-background = #f9f2f4
+
+a-default-color = #337ab7
+a-focus-color = #23527c
+a-target-cursor = alias
+
+selection-color = #fff
+selection-background = #47bfa2
+
+*,
+* before,
+* after
+  box-sizing border-box
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr,
+acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub,
+sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td
+  margin 0
+  padding 0
+  border 0
+  outline 0
+  font-weight inherit
+  font-style inherit
+  font-family inherit
+  vertical-align baseline
+
+html
+  -webkit-tap-highlight-color rgba(0, 0, 0, 0)
+  text-size-adjust 100%
+  font base-font
+  height 100%
+
+body
+  margin 0 auto
+  color base-color
+  font-size body-font-size
+  background-color base-background
+  -webkit-font-smoothing antialiased
+  height 100%
+  overflow-x hidden
+  overflow-y auto
+
+a
+  background-color transparent
+  color a-default-color
+  transition 300ms color ease
+  text-decoration none
+  cursor pointer
+
+a:hover
+  text-decoration none
+
+ul
+  padding-left 0
+  margin 0
+
+ul, li
+  list-style none
+
+afocus
+  color a-focus-color
+  outline thin dotted
+  outline 5px auto -webkit-focus-ring-color
+  outline-offset -2px
+
+a[target="_blank"]
+  cursor a-target-cursor
+
+i
+  font-style normal
+
+button
+  -webkit-appearance button
+  outline none
+
+button:active
+  position relative
+  top 1px
+
+code
+  padding 2px 4px
+  font-size 90%
+  color code-color
+  background-color code-background
+  border-radius 4px
+  font-family code-font-family
+
+button, input, select, textarea
+  font-family inherit
+  font-size 100%
+  margin 0
+  border none
+  outline none
+  border-radius 0
+  -webkit-appearance none
+
+::selection
+  background selection-background
+  color selection-color
+  text-shadow none
+
+//::-webkit-scrollbar
+//  margin-right 5px
+//  background-color #ddd
+//  width 10px
+//
+//::-webkit-scrollbar-thumb
+//  border 1px #eee solid
+//  border-radius 4px
+//  background #777
+//  box-shadow 0 0 8px #555 inset
+//  transition all .3s ease-out
+//
+//::-webkit-scrollbar-track
+//  box-shadow 0 0 2px #ccc
+
+

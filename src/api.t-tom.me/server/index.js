@@ -4,7 +4,7 @@
 
 const app = require('./app'),
   debug = require('debug')('express-blog:server'),
-  port = require('../config').port,
+  port = require('../config').app.port,
   serverLog = require('../mods/logger').server;
 
 const http = require('http'),
@@ -22,7 +22,6 @@ process.on('uncaughtException', function (err) {
   serverLog.serverError.error(err.name);
   serverLog.serverError.error(err.message);
   serverLog.serverError.error(err.stack);
-  serverLog.serverError.error('\n');
   serverLog.serverError.error('\n');
 });
 /**
@@ -59,4 +58,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('server is listen on port : ' + port);
 }

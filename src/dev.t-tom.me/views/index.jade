@@ -1,0 +1,12 @@
+extends ./extends/header
+
+block content
+
+    if needAuth
+        body.authFailed
+        app
+            script(src='/static/dist/build.js')
+    else
+        body
+        app
+            script(src='/static/dist/build.js')

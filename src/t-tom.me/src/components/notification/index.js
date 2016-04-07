@@ -39,17 +39,23 @@ const notice = function (content, duration, type, onclose) {
 };
 
 export default{
-
   info(content, duration, onClose) {
+    if (typeof duration === 'function') {
+      return notice(content, null, 'info', duration)
+    }
     return notice(content, duration, 'info', onClose)
   },
-
   success(content, duration, onClose){
+    if (typeof duration === 'function') {
+      return notice(content, null, 'info', duration)
+    }
     return notice(content, duration, 'success', onClose)
   },
-
   error(content, duration, onClose){
+    if (typeof duration === 'function') {
+      return notice(content, null, 'error', duration)
+    }
     return notice(content, duration, 'error', onClose)
   }
-
 }
+
