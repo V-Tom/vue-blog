@@ -1,8 +1,9 @@
 'use strict';
 import {loader,header,routerArticle} from '../types'
 import {ArticleApi} from  '../../api'
-import marked from '../../libs/markdown/marked'
 import Notification from '../../components/notification'
+
+import marked from '../../libs/markdown/marked'
 import Prism from '../../libs/markdown/prism'
 
 
@@ -25,6 +26,7 @@ export const setHeaderLimit = ({dispatch,router,_vm}, limit)=> {
 export const getArticleDetail = ({dispatch,router,_vm}, articleId, cb)=> {
   dispatch(loader.SHOW_LOADER);
   dispatch(header.HIDE_HEADER);
+  dispatch(routerArticle.SET_ARTICLE_READY_FALSE);
   ArticleApi.getArticleDetail(articleId).then(response=> {
     if (response.ok) {
       response = response.data;

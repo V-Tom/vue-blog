@@ -8,7 +8,7 @@
 
     <div class="article-sidebar">
       <section class="article-sidebar-inner">
-        <scrollspy :ready="article.articleDetailReady" :article="article.navigationArticle"></scrollspy>
+        <scrollspy :ready.sync="article.articleDetailReady" :article="article.navigationArticle"></scrollspy>
       </section>
     </div>
 
@@ -55,7 +55,6 @@
     },
     ready(){
       this.setHeaderLimit(this.$el.querySelector('header').offsetHeight - 50)
-      console.info('article.vue Ready!')
     },
     route: {
       data(transition){

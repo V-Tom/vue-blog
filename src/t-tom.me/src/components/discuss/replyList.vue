@@ -1,10 +1,10 @@
 <template>
   <div class="reply-list-wrap" transition="page-fade">
-    <div class="reply-loading" v-if="!replyListReady">
+    <div class="reply-loading" v-if="!reply.replyListReady">
       <div class="reply-loading-spinner ani-spinner"></div>
     </div>
     <ul class="reply-list">
-      <li v-for="data in replyList">
+      <li v-for="data in reply.replyList">
         <a href="javascript:void (0)">
           <img class="reply-user-avatar"
                :src="data.replyUser.avatar">
@@ -22,46 +22,28 @@
   </div>
 </template>
 <script type="es6">
-  import {ReplyApi} from '../../api'
-  import {emojiDecoding,MillisecondToDate} from '../../libs/utils/tools'
+  import {VuexActions} from '../../libs/utils/tools'
+  import * as actions from '../../vuex/actions/discuss.list.action'
   export default{
     name: "reply-list",
     data(){
 
       this.$on('sendArticleInfo', function (data) {
         var articleId = data.articleId;
-        this.articleId = articleId;
         setTimeout(() => {
           this.getReplyList(articleId);
         }, 300);
       });
 
       this.$on('addReplySuccess', function (data) {
-        this.replyList.unshift(data);
+        this.addANewReply(data);
       })
-
-      return {
-        articleId: null,
-        replyListReady: false,
-        replyList: []
-      }
     },
-    ready(){
-    },
-    methods: {
-      getReplyList: function (articleId) {
-        ReplyApi.getReply(10, 1, articleId).then(result=> {
-          if (result.data.success) {
-            result.data.data.forEach(item=> {
-              var replyUser = item.replyUser;
-              //replyUser.time.MillisecondToDate = MillisecondToDate(new Date(replyUser.time.UTCTime).getUTCSeconds())
-              replyUser.content = emojiDecoding(item.replyUser.content);
-            })
-            this.replyList = result.data.data;
-            this.replyListReady = true;
-          }
-        });
+    vuex: {
+      getters: {
+        reply: state=>state.discussList
       },
+      actions: VuexActions(actions)
     }
   }
 

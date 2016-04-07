@@ -20,6 +20,9 @@ const mutations = {
   },
   [routerArticle.HIDE_ARTICLE_MENU](state){
     state.articleMenu = false;
+  },
+  [routerArticle.SET_ARTICLE_READY_FALSE](state){
+    state.articleDetailReady = false;
   }
 };
 

@@ -1,3 +1,4 @@
+'use strict';
 import {routerBlog} from '../types'
 
 const state = {

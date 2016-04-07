@@ -7,6 +7,8 @@ import articleDetail from './modules/article.detail.modules'
 import articleList from './modules/article.list.modules'
 import loader from './modules/loader.modules'
 import header from './modules/header.modules'
+import discuss from './modules/discuss.modules'
+import discussList from './modules/discuss.list.modules'
 
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -18,7 +20,9 @@ export default new Vuex.Store({
     loader,
     header,
     articleDetail,
-    articleList
+    articleList,
+    discuss,
+    discussList
   },
   strict: debug,
   middlewares

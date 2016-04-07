@@ -15,7 +15,7 @@
     props: {
       ready: {
         type: Boolean,
-        default: true
+        default: false
       },
       article: {
         type: String,

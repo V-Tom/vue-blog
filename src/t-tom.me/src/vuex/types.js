@@ -13,11 +13,22 @@ export const header = {
   TOGGLE_HEADER_MENU: "TOGGLE_HEADER_MENU"
 };
 
+//discuss list
+export const discussList = {
+  GET_ARTICLE_REPLY_LIST: "GET_ARTICLE_REPLY_LIST",
+  ADD_A_NEW_REPLY: "ADD_A_NEW_REPLY"
+};
+
+//discuss
+
+export const discuss = {};
+
 //router-article
 export const routerArticle = {
   //openArticleMenu
   OPEN_ARTICLE_MENU: "OPEN_ARTICLE_MENU",
   HIDE_ARTICLE_MENU: "HIDE_ARTICLE_MENU",
+  SET_ARTICLE_READY_FALSE: "SET_ARTICLE_READY_FALSE",
   GET_ARTICLE_DETAIL: "GET_ARTICLE_DETAIL"
   //articleDiscuss
 };
