@@ -10,22 +10,13 @@ const App = {
   author: "Nomand",
   devVersion: 'v1',
   apiVersion: 'v1',
-  sessionMaxAge: 36000,
+  sessionMaxAge: 36500,
   subDomain: {
     "dev": {
       port: 5000,
-      domain: devServerENV === "development" ? "http://127.0.0.1:5000" : "http://dev.t-tom.me",
+      domain: devServerENV === "development" ? "http://127.0.0.1:5000" : "",
       env: devServerENV,
-      routerTitle: {
-        index: "一个全栈开发者的博客",
-        notFound: "404 page",
-        error: "500 page"
-      }
-    },
-    "api": {
-      port: 8000,
-      domain: apiServerENV === "development" ? "http://127.0.0.1:8000" : "http://api.t-tom.me",
-      env: apiServerENV,
+      maxAge: 36500,
       routerTitle: {
         index: "一个全栈开发者的博客",
         notFound: "404 page",
@@ -35,7 +26,8 @@ const App = {
     "base": {
       port: 4000,
       domain: "t-tom.me",
-      env: "development",
+      env: apiServerENV,
+      maxAge: 36500,
       routerTitle: {
         index: "一个全栈开发者的博客",
         notFound: "404 page",

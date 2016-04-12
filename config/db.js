@@ -2,19 +2,19 @@
 const DB = "";
 const db = {
   "users": {
-    "port": "mongodb://" + DB + "/user",
+    "port": "" + DB + "/user",
     "collection": {
       "user": ""
     }
   },
   "cache": {
-    "port": "mongodb://" + DB + "/cache",
+    "port": "" + DB + "/cache",
     "collection": {
       "session": ""
     }
   },
   "blog": {
-    "port": "mongodb://" + DB + "/blog",
+    "port": "" + DB + "/blog",
     "collection": {
       "blogList": "",
       "articleReplyList": "",
@@ -57,14 +57,14 @@ const userDbSource = {
 const sessionMaxAge = 36000;
 const session = function (store) {
   return {
-    "secret": "Nomand",
+    "secret": "",
     "resave": false,
     "saveUninitialized": true,
     "cookie": {
       "maxAge": sessionMaxAge
     },
     "store": new store({
-      "url": 'mongodb://' + DB + '/cache'
+      "url": '' + DB + '/cache'
     })
   }
 };

@@ -23,7 +23,7 @@ module.exports = function (path, message, data) {
         } else {
           date = new Date();
         }
-        localTimePath = date.getFullYear() + '-' + (date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1));
+        localTimePath = date.getFullYear() + '-' + ((date.getMonth() + 1) >= 10 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1));
 
         if (files.indexOf(localTimePath) === -1) {
           exec('mkdir ' + localTimePath);
