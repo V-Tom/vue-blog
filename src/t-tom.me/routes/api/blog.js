@@ -29,7 +29,7 @@ router.get('/list/', (req, res)=> {
       //暂时不允许不存在分页
       res.status(500).json(Json.error("暂时不允许不存在分页的查询!")).end();
     }
-    dbQuery = param.tag ? {"tags": String(param.tag)} : {};
+    dbQuery = param.tag ? {"tags": String(param.tag.toString().toLowerCase())} : {};
 
     controller.article.getArticleList(dbQuery, options).then(result=> {
       res.status(200).json(result);

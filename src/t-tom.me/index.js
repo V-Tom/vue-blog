@@ -42,10 +42,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 //static
-app.use('/static/dist', express.static(path.join(__dirname, './dist')));
-express.static({
+app.use('/static/dist', express.static(path.join(__dirname, './dist'),{
   maxAge: config.app.maxAge
-});
+}));
 
 //custom router
 var index = require('./routes/index');

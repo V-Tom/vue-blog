@@ -1,6 +1,6 @@
 <template>
   <section class="blog-list-page container animation" transition="page-fade" transition-mode="out-in"
-           v-infinite-scroll="loadMore()">
+           v-infinite-scroll="getArticleList()">
     <article class="post-preview" v-for="(index,item) in articleList.data">
       <a v-link="{name:'articleDetail',params:{articleId:item.id}}">
         <h2 class="post-title ellipsis">{{ item.title }}</h2>
@@ -31,11 +31,6 @@
       data(transition){
         this.setHeaderLimit(0);
         this.getArticleList();
-      }
-    },
-    methods: {
-      loadMore: function () {
-        console.log('loadMore');
       }
     }
   };

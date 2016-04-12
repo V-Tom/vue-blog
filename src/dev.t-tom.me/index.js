@@ -49,7 +49,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 //cookie
 app.use(cookieParser());
 //static
-app.use('/static/dist', express.static(path.join(__dirname, './dist')));
+app.use('/static/dist', express.static(path.join(__dirname, './dist'), {
+  maxAge: config.app.maxAge
+}));
 //session
 app.use(session(ConfigSession(MongoStore)));
 

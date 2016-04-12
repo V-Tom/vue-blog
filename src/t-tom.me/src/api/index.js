@@ -16,7 +16,7 @@ export const BlogApi = {
       });
     }
   },
-  getBlogListLimit: 10
+  getBlogListLimit: 1
 };
 
 export const ArticleApi = {

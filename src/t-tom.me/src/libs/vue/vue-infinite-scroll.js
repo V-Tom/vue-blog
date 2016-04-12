@@ -106,7 +106,7 @@
       directive.scrollListener = throttle(directive.doCheck.bind(directive), 200);
       directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener);
 
-      var disabledExpr = 'busy';
+      var disabledExpr = "articleList.busy";
       var disabled = false;
       if (disabledExpr) {
         this.vm.$watch(disabledExpr, function (value) {

@@ -10,7 +10,9 @@ export const header = {
   HIDE_HEADER: "HIDE_HEADER",
   SHOW_HEADER: "SHOW_HEADER",
   SET_HEADER_LIMIT: "SET_HEADER_LIMIT",
-  TOGGLE_HEADER_MENU: "TOGGLE_HEADER_MENU"
+  TOGGLE_HEADER_MENU: "TOGGLE_HEADER_MENU",
+  TOGGLE_MOBILE_MENU: "TOGGLE_MOBILE_MENU",
+  HIDE_MOBILE_MENU: "HIDE_MOBILE_MENU"
 };
 
 //discuss list
@@ -18,10 +20,6 @@ export const discussList = {
   GET_ARTICLE_REPLY_LIST: "GET_ARTICLE_REPLY_LIST",
   ADD_A_NEW_REPLY: "ADD_A_NEW_REPLY"
 };
-
-//discuss
-
-export const discuss = {};
 
 //router-article
 export const routerArticle = {
@@ -35,7 +33,10 @@ export const routerArticle = {
 
 //router-blog-list
 export const routerBlog = {
-  GET_ARTICLE_LIST: "GET_ARTICLE_LIST"
+  GET_ARTICLE_LIST: "GET_ARTICLE_LIST",
+  LOAD_MORE: "LOAD_MORE",
+  SET_TAG_NAME: "SET_TAG_NAME",
+  TOGGLE_DATA_BUSY: "TOGGLE_DATA_BUSY"
 };
 
 

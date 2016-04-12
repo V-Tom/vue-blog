@@ -1,8 +1,11 @@
 "use strict";
 import Vue from 'vue'
 import  VueResource from 'vue-resource'
-var apiVersion = require('../../config').apiVersion;
-var apiServer = require('../../config').apiServer;
+
+//do not use require for webpack
+var apiVersion = "v1";
+var apiServer = "http://127.0.0.1:4000";
+
 Vue.use(VueResource);
 
 Vue.http.options.root = apiServer;
