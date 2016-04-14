@@ -1,0 +1,81 @@
+
+body:before
+  content ""
+  height 50px
+  display block
+
+[v-cloak]
+  display none
+
+.ellipsis
+  text-overflow ellipsis
+  white-space nowrap
+  word-break keep-all
+  width 100%
+
+.container:before, .App_nav_bar:before, .App_nav_bar > ulbefore, .clear:before
+  display table
+  content ""
+  overflow hidden
+
+.container:after, .App_nav_bar:after, .App_nav_bar > ulafter, .clear:after
+  content "."
+  display block
+  height 0
+  font-size 0
+  clear both
+  visibility hidden
+
+.container
+  padding-right 15px
+  padding-left 15px
+  margin-right auto
+  margin-left auto
+
+.close
+  font-size 2rem
+  padding 0 .4rem
+  font-weight 700
+  color: #000;
+  text-shadow 0 1px 0 #fff
+  opacity .2
+  -webkit-appearance: none
+  cursor: pointer
+  background 0 0
+  border 0
+
+  &:before
+    content: '×'
+
+  &:hover
+    opacity .8
+
+.fl
+  float left
+
+.fr
+  float right
+
+/*480*/
+@media (min-width 34em)
+  .container
+    /*max-width 34rem*/
+    max-width 544px
+
+/*720*/
+@media (min-width 48em)
+  .container
+    /*max-width 45rem*/
+    max-width 720px
+
+/*960*/
+@media (min-width 62em)
+  .container
+    /*max-width 60rem*/
+    max-width 960px
+
+/*1140*/
+@media (min-width 75em)
+  .container
+    /*max-width 72.25rem*/
+    max-width 1156px

@@ -16,21 +16,6 @@ app.set('view engine', 'jade');
 app.set('x-powered-by', false);
 app.set('etag', true);
 
-if (app.get('env') === 'development') {
-  const allowCrossDomain = function (req, res, next) {
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    if (req.method === 'OPTIONS') {
-      res.status(200)
-    }
-    next();
-  };
-  //cros
-  app.use(allowCrossDomain);
-}
-
 //favicon
 app.use(favicon(path.join(__dirname, './src', 'favicon.ico')));
 //gzip
@@ -42,9 +27,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 //static
-app.use('/static/dist', express.static(path.join(__dirname, './dist'),{
+app.use('/static/dist', express.static(path.join(__dirname, './dist'), {
   maxAge: config.app.maxAge
 }));
+
+//api cors
+app.use('/api', (req, res, next)=> {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'POST,GET,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  if (req.method === 'OPTIONS') {
+    res.status(200)
+  }
+  next();
+});
 
 //custom router
 var index = require('./routes/index');

@@ -4,7 +4,7 @@ var webpack = require("webpack");
 var path = require('path');
 
 
-const entry = path.join(__dirname, '../src/index.js');
+const entry = path.join(__dirname, '../src/static.js');
 const plugins = [
   //提交公用的js文件到common.js文件中
   //new CommonsChunkPlugin('common.js'),

@@ -1,0 +1,34 @@
+.notification-wrapper
+  position fixed
+  width 100%
+  top 5.5rem
+  z-index 10000
+
+  .icon-info:before
+    color rgba(45, 183, 245, 1)
+
+  .icon-error:before
+    color rgba(255, 102, 0, 1)
+
+  .icon-success:before
+    color rgba(135, 208, 104, 1)
+
+  .body
+    position absolute
+    transform translate3d(0, -100%, 0)
+    transition all 100ms 0s cubic-bezier(0, 0.56, 0, 1.4)
+    left 50%
+    width auto
+    opacity 1
+    visibility show
+    vertical-align middle
+
+    .content
+      position relative
+      right 50%
+      padding .8rem 1.6rem
+      border-radius .6rem
+      border .1rem solid #d9d9d9
+      box-shadow 0 0 .4rem rgba(0, 0, 0, 0.17)
+      background #fff
+      font-size 1.4rem

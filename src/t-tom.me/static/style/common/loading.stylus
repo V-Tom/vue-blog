@@ -1,0 +1,67 @@
+background = rgba(10, 10, 10, 0)
+v-ring-width = 6rem
+v-ring-height = 6rem
+v-ring-opacity = 1
+v-ring-border = 4px solid rgb(93, 197, 150)
+
+v-ring-container-width = 6rem
+v-ring-container-height = 6rem
+
+v-ring-ani-perspective = 80rem
+
+.v-spinner
+  position fixed
+  top 0
+  right 0
+  left 0
+  bottom 0
+  background background
+  z-index 9999
+  transition 300ms 0s all ease-in-out
+
+  .v-ring-container
+    height v-ring-container-width
+    width v-ring-container-height
+    position absolute
+    top 0
+    right 0
+    left 0
+    bottom 0
+    margin auto
+
+  .v-ring
+    height v-ring-width
+    width v-ring-height
+    border v-ring-border
+    opacity v-ring-opacity
+    border-radius 100%
+
+  .v-ring-1
+    animation v-ringRightRotate 2s 0s infinite linear
+    animation-fill-mode forwards
+    perspective v-ring-ani-perspective
+    position absolute
+    top 0
+    left 0
+
+  .v-ring-2
+    animation v-ringLeftRotate 2s 0s infinite linear
+    animation-fill-mode forwards
+    perspective v-ring-ani-perspective
+    position absolute
+    top 0
+    left 0
+
+@keyframes v-ringRightRotate
+  from
+    transform rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+  to
+    transform rotateX(180deg) rotateY(360deg) rotateZ(360deg)
+
+@keyframes v-ringLeftRotate
+  from
+    transform rotateX(0deg) rotateY(0deg) rotateZ(0deg)
+  to
+    transform rotateX(360deg) rotateY(180deg) rotateZ(360deg)
+
+

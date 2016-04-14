@@ -19,17 +19,22 @@ const updateArticleDetail = function (dbQuery, doc, git) {
   return new Promise((resolve, reject)=> {
     new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
       resolve(result);
+
       //10秒后再更新git repo
-      setTimeout(function () {
-        try {
-          shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
-        } catch (ex) {
-          console.error(ex.stack);
-        }
-      }, 10000);
+      if (git) {
+        setTimeout(function () {
+          try {
+            shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
+          } catch (ex) {
+            console.error(ex.stack);
+          }
+        }, 10000);
+      }
+
     }).catch(err=> {
       reject(err)
     });
+
   });
 };
 

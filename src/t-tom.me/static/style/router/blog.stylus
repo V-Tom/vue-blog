@@ -1,0 +1,63 @@
+post-container-padding = 15px 20px
+
+post-a-color = #333
+post-a-hover-color = #0085a1
+
+post-title-font-size = 2.4rem
+post-content-preview-font-size = 1.4rem
+
+post-content-preview-font-color = #a3a3a3
+
+post-meta-font-size = 1.8rem
+post-meta-font-family = Lora, 'Times New Roman', serif
+
+.blog-list-page
+  position relative
+  color #333
+  font-style normal
+  padding post-container-padding
+  transition .3s 0s animate
+  left 0
+
+  a
+    display inline-block
+    color post-a-color
+
+    &:hover
+      color post-a-hover-color
+
+      .post-subtitle
+        color post-a-hover-color
+
+  .post-preview
+    color #333
+
+  .post-title
+    font-size post-title-font-size
+    margin-bottom 10px
+    font-weight 600
+
+  .post-subtitle
+    color #333
+    font-size 1.5rem
+
+  .post-content-preview
+    color post-content-preview-font-color
+    font-size post-content-preview-font-size
+    font-style italic
+    margin 10px 0
+
+    &:hover
+      color post-a-hover-color
+
+  .post-meta
+    color gray
+    font-family post-meta-font-family
+    font-style italic
+    font-size post-meta-font-size
+
+  hr
+    margin 25px 0
+    border 0
+    border-top 1px solid #eee
+

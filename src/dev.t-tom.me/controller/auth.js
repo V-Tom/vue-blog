@@ -8,17 +8,17 @@ const ObjectId = require('mongodb').ObjectID,
 
 var Json = require(path.join(config.path.modsPath, 'jsonWrap'));
 const authAdmin = function () {
-  return new Promise((resolve, rejcet)=> {
-    setTimeout(function () {
-      resolve({
-        data: {
-          name: "s",
-          pwd: "s"
-        }
-      })
-    }, 100);
-  });
-  //return new DBHelperFind(dbSource.user).findOne({"name": "admin"})
+  //return new Promise((resolve, rejcet)=> {
+  //setTimeout(function () {
+  //  resolve({
+  //    data: {
+  //      name: "s",
+  //      pwd: "s"
+  //    }
+  //  })
+  //}, 100);
+  //});
+  return new DBHelperFind(dbSource.user).findOne({"name": "admin"})
 };
 
 module.exports = {

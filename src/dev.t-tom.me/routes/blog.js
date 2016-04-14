@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-var controller = require('../controller/blog');
-var authController = require('../controller/auth');
-var Json = require('../../../mods/jsonWrap');
+const controller = require('../controller/blog');
+const authController = require('../controller/auth');
+const Json = require('../../../mods/jsonWrap');
+const ObjectId = require('mongodb').ObjectID;
 
 //更新文章详情
 router.put('/article/update', (req, res)=> {
@@ -22,7 +23,7 @@ router.put('/article/update', (req, res)=> {
       res.status(403).json(Json.error("未知用户权限")).end();
     }
   }).catch(err=> {
-    res.status(403).json(Json.error("查询用户权限错误")).end();
+    res.status(403).json(Json.error("查询用户权限错误", {err: err.message})).end();
   });
 });
 
@@ -32,7 +33,6 @@ router.get('/article/get', (req, res)=> {
   var query = req.query, id, dbQuery;
   id = query.articleId;
   dbQuery = {"articleId": id};
-
 
   authController.auth.authAdmin().then(result=> {
     if (req.session.user === result.data.name && req.session.pwd === result.data.pwd) {

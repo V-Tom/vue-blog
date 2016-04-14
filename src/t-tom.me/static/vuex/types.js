@@ -1,0 +1,43 @@
+'use strict';
+//loader
+export const loader = {
+  SHOW_LOADER: "SHOW_LOADER",
+  HIDE_LOADER: "HIDE_LOADER"
+};
+
+//header
+export const header = {
+  HIDE_HEADER: "HIDE_HEADER",
+  SHOW_HEADER: "SHOW_HEADER",
+  SET_HEADER_LIMIT: "SET_HEADER_LIMIT",
+  TOGGLE_HEADER_MENU: "TOGGLE_HEADER_MENU",
+  TOGGLE_MOBILE_MENU: "TOGGLE_MOBILE_MENU",
+  HIDE_MOBILE_MENU: "HIDE_MOBILE_MENU"
+};
+
+//discuss list
+export const discussList = {
+  GET_ARTICLE_REPLY_LIST: "GET_ARTICLE_REPLY_LIST",
+  ADD_A_NEW_REPLY: "ADD_A_NEW_REPLY"
+};
+
+//router-article
+export const routerArticle = {
+  //openArticleMenu
+  OPEN_ARTICLE_MENU: "OPEN_ARTICLE_MENU",
+  HIDE_ARTICLE_MENU: "HIDE_ARTICLE_MENU",
+  SET_ARTICLE_READY_FALSE: "SET_ARTICLE_READY_FALSE",
+  GET_ARTICLE_DETAIL: "GET_ARTICLE_DETAIL"
+  //articleDiscuss
+};
+
+//router-blog-list
+export const routerBlog = {
+  GET_ARTICLE_LIST: "GET_ARTICLE_LIST",
+  LOAD_MORE: "LOAD_MORE",
+  SET_TAG_NAME: "SET_TAG_NAME",
+  TOGGLE_DATA_BUSY: "TOGGLE_DATA_BUSY"
+};
+
+
+

@@ -1,0 +1,17 @@
+.discuss-wrap
+  position relative
+  color #fff
+  background #3f3f3f
+  .discuss
+    width 100%
+    max-width 100%
+    margin 0 auto
+    padding 3rem 1rem
+
+/*720*/
+@media (min-width 48em)
+  .discuss-wrap .discuss
+    width 80%
+    max-width 90rem
+    padding 3rem
+

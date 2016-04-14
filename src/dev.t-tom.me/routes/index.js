@@ -1,23 +1,33 @@
 const express = require('express');
 const router = express.Router();
-var Config = require('../config');
+const Config = require('../config');
 
-var Json = require('../../../mods/jsonWrap');
+const auth = require('../controller').auth;
 
 /* HOME PAGE */
 router.get('/', function (req, res, next) {
-  var session = req.session;
-  if (session.user === "s" && session.pwd === "s") {
-    res.render('index', {
-      title: Config.app.routerTitle.index,
-      needAuth: false
-    })
-  } else {
+  var session = req.session, renderAuthFailed = ()=> {
     res.render('index', {
       title: Config.app.routerTitle.index,
       needAuth: true
     })
-  }
+  };
+  auth.authAdmin().then(result=> {
+    if (result.success) {
+      if (session.user === result.data.name && session.pwd === result.data.pwd) {
+        res.render('index', {
+          title: Config.app.routerTitle.index,
+          needAuth: false
+        })
+      } else {
+        renderAuthFailed();
+      }
+    } else {
+      renderAuthFailed();
+    }
+  }).catch(ex=> {
+    renderAuthFailed();
+  });
 });
 /*404 PAGE*/
 router.get('/404', (req, res)=> {
