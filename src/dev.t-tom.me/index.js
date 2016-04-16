@@ -38,7 +38,7 @@ if (app.get('env') === 'development') {
 }
 
 //favicon
-app.use(favicon(path.join(__dirname, './src', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, './static', 'favicon.ico')));
 //gzip
 app.use(compression({level: 9}));
 //logger
