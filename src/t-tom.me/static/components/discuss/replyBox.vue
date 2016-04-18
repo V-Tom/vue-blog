@@ -142,17 +142,6 @@
         Notification.info('更换头像暂不支持，努力开发中~');
       },
       getVerifyCode: function (ev) {
-        if (this.verifyCode.code && this.verifyCode.base64) {
-          if (ev.target.tagName === 'INPUT') {
-            return false;
-          } else {
-            //半分钟获取一次
-            if (new Date().getTime() - this.verifyCode.timeShown < 10000) {
-              Notification.info('获取验证码频率10s一次哦~');
-              return false;
-            }
-          }
-        }
         this.verifyCodePlaceholder = "读取验证码中~";
         ToolsApi.getVerifyCode().then(result=> {
           result = result.data;

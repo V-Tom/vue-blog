@@ -3,8 +3,8 @@ import Vue from 'vue'
 import  VueResource from 'vue-resource'
 
 //do not use require for webpack
-var apiVersion = "v1";
-var apiServer = "https://t-tom.me";
+const apiVersion = "v1";
+const apiServer = process.env.NODE_ENV == "development" ? "http://127.0.0.1:4000" : 'https://t-tom.me';
 
 Vue.use(VueResource);
 

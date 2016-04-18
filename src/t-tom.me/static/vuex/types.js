@@ -1,4 +1,5 @@
 'use strict';
+
 //loader
 export const loader = {
   SHOW_LOADER: "SHOW_LOADER",
@@ -23,12 +24,10 @@ export const discussList = {
 
 //router-article
 export const routerArticle = {
-  //openArticleMenu
   OPEN_ARTICLE_MENU: "OPEN_ARTICLE_MENU",
   HIDE_ARTICLE_MENU: "HIDE_ARTICLE_MENU",
   SET_ARTICLE_READY_FALSE: "SET_ARTICLE_READY_FALSE",
   GET_ARTICLE_DETAIL: "GET_ARTICLE_DETAIL"
-  //articleDiscuss
 };
 
 //router-blog-list
@@ -36,7 +35,8 @@ export const routerBlog = {
   GET_ARTICLE_LIST: "GET_ARTICLE_LIST",
   LOAD_MORE: "LOAD_MORE",
   SET_TAG_NAME: "SET_TAG_NAME",
-  TOGGLE_DATA_BUSY: "TOGGLE_DATA_BUSY"
+  TOGGLE_DATA_BUSY: "TOGGLE_DATA_BUSY",
+  RESET_BLOG_LIST: "RESET_BLOG_LIST"
 };
 
 

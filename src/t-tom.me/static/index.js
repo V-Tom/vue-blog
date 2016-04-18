@@ -7,8 +7,6 @@ import App from './app.vue'
 
 Vue.use(VueRouter);
 
-Vue.config.debug = false;
-
 Vue.transition('page-fade', {
   enterClass: 'fadeIn',
   leaveClass: 'fadeOut',
@@ -35,7 +33,6 @@ sync(vueStore, router);
 
 router.beforeEach(transition => {
   //header是否监听滚动和滚动距离和是否打开小屏幕下的header菜单
-  transition.to.router.app.$store.dispatch("SHOW_HEADER");
   transition.to.router.app.$store.dispatch('SET_HEADER_LIMIT', 0);
   if (transition.to.auth) {
     transition.next();

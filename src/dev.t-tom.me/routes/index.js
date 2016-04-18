@@ -5,7 +5,7 @@ const Config = require('../config');
 const auth = require('../controller').auth;
 
 /* HOME PAGE */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next)=> {
   var session = req.session, renderAuthFailed = ()=> {
     res.render('index', {
       title: Config.app.routerTitle.index,

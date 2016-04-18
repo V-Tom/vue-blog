@@ -1,7 +1,7 @@
 import Notification from './notification.vue'
 import Vue from 'vue'
 
-const notice = function (content, duration, type, onclose) {
+const notice = (content, duration, type, onclose)=> {
   let iconClass = ({
     'info': 'info',
     'success': 'success',

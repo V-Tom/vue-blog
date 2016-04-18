@@ -9,11 +9,10 @@ import loader from './modules/loader.modules'
 import header from './modules/header.modules'
 import discussList from './modules/discuss.list.modules'
 
-const debug = process.env.NODE_ENV !== 'production';
-
 Vue.use(Vuex);
-Vue.config.debug = false
+const debug = process.env.NODE_ENV == "development";
 
+Vue.config.debug = debug;
 export default new Vuex.Store({
   modules: {
     loader,

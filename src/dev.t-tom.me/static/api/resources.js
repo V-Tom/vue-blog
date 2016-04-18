@@ -11,11 +11,11 @@ Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
 
 Vue.http.interceptors.push({
 
-  request: function (request) {
+  request: (request)=> {
     return request;
   },
 
-  response: function (response) {
+  response: (response) => {
     return response;
   }
 

@@ -23,7 +23,7 @@ app.set('x-powered-by', false);
 app.set('etag', true);
 
 if (app.get('env') === 'development') {
-  const allowCrossDomain = function (req, res, next) {
+  const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTIONS');
@@ -67,7 +67,7 @@ app.use('/dev/' + devVersion + '/auth', authApi);
 
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next)=> {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -75,7 +75,7 @@ app.use(function (req, res, next) {
 
 
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use((err, req, res, next)=> {
     res.status(err.status || 500);
     if (err.status != 404) {
       console.error(err.message);
@@ -90,7 +90,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     title: '啊哦,发生错误了~' + err.status || 500,

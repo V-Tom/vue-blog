@@ -38,7 +38,7 @@
 <script type="es6">
   'use strict';
   import {VuexActions} from '../libs/utils/tools'
-  import * as actions from '../vuex/actions/article.action'
+  import * as actions from '../vuex/actions/article.detail.action'
   import '../libs/vue/vue-scrollSpy'
 
   export default{

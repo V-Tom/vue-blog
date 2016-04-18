@@ -17,7 +17,7 @@
   'use strict';
   import  '../libs/vue/vue-infinite-scroll'
   import {VuexActions} from '../libs/utils/tools'
-  import * as actions from '../vuex/actions/blog.action'
+  import * as actions from '../vuex/actions/article.list.action'
 
   export default{
     name: "blog",
@@ -29,7 +29,7 @@
     },
     route: {
       data(transition){
-        this.setHeaderLimit(0);
+        this.resetBlogListData();
         this.getArticleList();
       }
     }

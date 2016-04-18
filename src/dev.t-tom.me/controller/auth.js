@@ -7,7 +7,7 @@ const ObjectId = require('mongodb').ObjectID,
   DBHelperInsert = require(path.join(config.path.modsPath, 'db/db.insert'));
 
 var Json = require(path.join(config.path.modsPath, 'jsonWrap'));
-const authAdmin = function () {
+const authAdmin = () => {
   //return new Promise((resolve, rejcet)=> {
   //setTimeout(function () {
   //  resolve({

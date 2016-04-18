@@ -3,25 +3,25 @@ import {AuthResource,ArticleResource} from './resources'
 
 
 export const AuthApi = {
-  login: function (data) {
+  login: (data) => {
     return AuthResource.save({
       type: "login"
     }, data)
   },
-  logout: function () {
+  logout: () => {
     return AuthResource.get({
       type: "logout"
     })
   }
 };
 export const ArticleApi = {
-  getArticleDetail: function (articleId) {
+  getArticleDetail: (articleId) => {
     return ArticleResource.get({
       type: "get",
       articleId: articleId
     })
   },
-  updateArticleDetail: function (articleId, data, git) {
+  updateArticleDetail: (articleId, data, git)=> {
     return ArticleResource.update({
       type: "update",
       articleId: articleId
@@ -30,7 +30,7 @@ export const ArticleApi = {
       git: git
     })
   },
-  createArticle: function (data) {
+  createArticle: (data) => {
     return ArticleResource.save({
       type: "new"
     }, data)

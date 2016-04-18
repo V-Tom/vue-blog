@@ -18,7 +18,6 @@ const plugins = [
   new webpack.BannerPlugin('This file is created by Nomand')
 ];
 
-
 module.exports = {
   debug: true,
   entry: entry,

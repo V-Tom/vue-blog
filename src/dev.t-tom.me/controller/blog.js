@@ -11,18 +11,18 @@ const ObjectId = require('mongodb').ObjectID,
   DBHelperTools = require(path.join(config.path.modsPath, 'db/db.tools'));
 
 
-const getArticleDetail = function (dbQuery) {
+const getArticleDetail = (dbQuery) => {
   return new DBHelperFind(dbSource.blogDetail).findOne(dbQuery);
 };
 
-const updateArticleDetail = function (dbQuery, doc, git) {
+const updateArticleDetail = (dbQuery, doc, git)=> {
   return new Promise((resolve, reject)=> {
     new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
       resolve(result);
 
       //10秒后再更新git repo
       if (git) {
-        setTimeout(function () {
+        setTimeout(()=> {
           try {
             shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
           } catch (ex) {
@@ -38,12 +38,12 @@ const updateArticleDetail = function (dbQuery, doc, git) {
   });
 };
 
-const insertNewArticle = function (data) {
+const insertNewArticle = (data)=> {
   return new Promise((resolve, reject)=> {
     new DBHelperInsert(dbSource.blogDetail).insertOne(data).then(result=> {
       resolve(result);
       //10秒后再更新git repo
-      setTimeout(function () {
+      setTimeout(()=> {
         try {
           shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
         } catch (ex) {
