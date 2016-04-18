@@ -1,19 +1,19 @@
 #t-tom blog
 
-## set up
-### `npm install`
+### set up
+#### `npm install`
 
-## run base dev
-### `npm run base-dev`
+### run base dev
+#### `npm run base-dev`
 
-## run base build
-### `npm run base-build`
+### run base build
+#### `npm run base-build`
 
-## run dev dev
-### `npm run dev-dev`
+### run dev dev
+#### `npm run dev-dev`
 
-## run dev build
-### `npm run dev-build`
+### run dev build
+#### `npm run dev-build`
 
 ### 目录结构
 
