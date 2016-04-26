@@ -8,6 +8,7 @@ const ObjectId = require('mongodb').ObjectID,
   DBHelperInsert = require(path.join(config.path.modsPath, 'db/db.insert')),
   DBHelperTools = require(path.join(config.path.modsPath, 'db/db.tools'));
 
+var jwt = require(path.join(config.path.modsPath, "jwt"));
 
 const updateArticleViews = function (articleId) {
   return new DBHelperTools(dbSource.blogDetail).updateArticleViews(articleId);
@@ -25,13 +26,13 @@ const getReply = function (dbQuery, options) {
   return new DBHelperFind(dbSource.reply).find(dbQuery, options);
 };
 
-const insertReply = function (request) {
-  var data = request.body;
-  return new DBHelperInsert(dbSource.replyUser).insertOne({
+const insertReply = function (data, userId) {
+  return new DBHelperInsert(dbSource.reply).insertOne({
     "articleDbId": data.articleDbId,
     "articleId": data.articleId,
     "replyTo": data.replyTo,
     "replyUser": {
+      "id": jwt.decode.decode(userId),
       "content": data.replyUser.content,
       "name": data.replyUser.name,
       "time": data.replyUser.time,
@@ -39,20 +40,6 @@ const insertReply = function (request) {
     }
   });
 };
-
-const insertReplyUser = function (request) {
-  var data = request.body, ip = request.ip;
-  return new DBHelperInsert(dbSource.replyUser).insertOne({
-    articleDbId: data.articleDbId,
-    articleId: data.articleId,
-    name: data.replyUser.name,
-    time: data.replyUser.time,
-    email: data.replyUser.email,
-    site: data.replyUser.site,
-    ip: ip
-  });
-};
-
 module.exports = {
   article: {
     getArticleDetail: getArticleDetail,
@@ -61,7 +48,6 @@ module.exports = {
   },
   reply: {
     getReply: getReply,
-    insertReply: insertReply,
-    insertReplyUser: insertReplyUser
+    insertReply: insertReply
   }
 };

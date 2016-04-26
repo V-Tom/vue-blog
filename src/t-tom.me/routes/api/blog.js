@@ -3,11 +3,12 @@
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
-
+const path = require('path');
 
 var controller = require('../../controller/blog');
 var authController = require('../../controller/auth');
-var Json = require('../../../../mods/jsonWrap');
+var json = require('../../../../mods/jsonWrap');
+
 
 //获取文章列表
 router.get('/list/', (req, res)=> {
@@ -27,9 +28,9 @@ router.get('/list/', (req, res)=> {
       }
     } else {
       //暂时不允许不存在分页
-      res.status(500).json(Json.error("暂时不允许不存在分页的查询!")).end();
+      res.status(500).json(json.error("暂时不允许不存在分页的查询!")).end();
     }
-    dbQuery = param.tag ? {"tags": String(param.tag.toString().toLowerCase())} : {};
+    dbQuery = param.tag ? {"tags": String(param.tag.toString())} : {};
 
     controller.article.getArticleList(dbQuery, options).then(result=> {
       res.status(200).json(result);
@@ -86,33 +87,20 @@ router.get('/reply/list', (req, res)=> {
 
 //对文章进行评论
 router.post('/reply/add', (req, res)=> {
-  var insertUserInfo = ()=> {
-    return new Promise((resolve, reject)=> {
-      controller.reply.insertReplyUser(req).then(result=> {
-        resolve(result)
-      }).catch(err=> {
-        reject(err);
-      });
+  let session = req.session, userId = session.userId;
+  if (userId) {
+    controller.reply.insertReply(req.body, userId).then(result=> {
+      if (result) {
+        res.status(200).json(result);
+      }
+    }).catch(err=> {
+      res.status(500).json(err);
+    }).always(()=> {
+      res.end();
     });
-  }, insertReplyContent = ()=> {
-    return new Promise((resolve, reject)=> {
-      controller.reply.insertReply(req).then(result=> {
-        resolve(result)
-      }).catch(err=> {
-        reject(err);
-      });
-    });
-  };
-  Promise.all([insertUserInfo(), insertReplyContent()]).then(result=> {
-    if (result.length) {
-      res.status(200).json(result);
-    }
-  }).catch(err=> {
-    console.log(err);
-    res.status(500).json(err);
-  }).always(()=> {
-    res.end();
-  });
+  } else {
+    res.status(200).json(json.error("请登录后进行评论"));
+  }
 });
 
 module.exports = router;

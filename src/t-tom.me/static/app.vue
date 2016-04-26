@@ -27,11 +27,8 @@
         writeEmojiStyle();
       }
       copyListener();
-      document.addEventListener('click', (ev)=> {
-        if ([].slice.call(ev.target.classList).indexOf('App_nav_toggle') == -1) {
-          this.$store.dispatch("HIDE_MOBILE_MENU");
-        }
-      }, false)
+      let removelocalStorage = document.querySelector("#removelocalStorage");
+      removelocalStorage && removelocalStorage.parentNode.removeChild(removelocalStorage);
     },
     components: {
       'v-header': require('./components/header.vue'),

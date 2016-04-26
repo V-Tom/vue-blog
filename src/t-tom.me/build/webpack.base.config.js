@@ -9,11 +9,6 @@ const plugins = [
   //提交公用的js文件到common.js文件中
   //new CommonsChunkPlugin('common.js'),
 
-  //将样式统一发布到style.css中
-  new ExtractTextPlugin("style.css", {
-    allChunks: true,
-    disable: false
-  }),
   //文件头部指定的注释信息
   new webpack.BannerPlugin('This file is created by Nomand')
 ];

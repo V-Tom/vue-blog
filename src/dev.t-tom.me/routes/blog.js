@@ -10,18 +10,19 @@ const ObjectId = require('mongodb').ObjectID;
 router.put('/article/update', (req, res)=> {
   //authController.auth.authAdmin().then(result=> {
   //  if (req.session.user === result.data.name && req.session.pwd === result.data.pwd) {
-      var postData = req.body.data, git = req.body.git, articleId = postData._id;
-      delete postData._id;
-      controller.article.updateArticleDetail({"_id": ObjectId(articleId)}, postData, git).then(result=> {
-        res.status(200).json(result)
-      }).catch(err=> {
-        res.status(500).json(err);
-      }).always(()=> {
-        res.end();
-      });
-    //} else {
-    //  res.status(403).json(Json.error("未知用户权限")).end();
-    //}
+  var postData = req.body.data, git = req.body.git, articleId = postData.articleId;
+  delete postData._id;
+  controller.article.updateArticleDetail({"articleId": articleId}, postData, git).then(result=> {
+    res.status(200).json(result)
+  }).catch(err=> {
+    console.err(err);
+    res.status(500).json(err);
+  }).always(()=> {
+    res.end();
+  });
+  //} else {
+  //  res.status(403).json(Json.error("未知用户权限")).end();
+  //}
   //}).catch(err=> {
   //  res.status(403).json(Json.error("查询用户权限错误", {err: err.message})).end();
   //});
@@ -36,18 +37,18 @@ router.get('/article/get', (req, res)=> {
 
   //authController.auth.authAdmin().then(result=> {
   //  if (req.session.user === result.data.name && req.session.pwd === result.data.pwd) {
-      controller.article.getArticleDetail(dbQuery).then(result=> {
-        if (result.success) {
-          res.status(200).json(result);
-        }
-      }).catch(err=> {
-        res.status(500).json(err);
-      }).always(()=> {
-        res.end();
-      });
-    //} else {
-    //  res.status(403).json(Json.error("未知用户权限")).end();
-    //}
+  controller.article.getArticleDetail(dbQuery).then(result=> {
+    if (result.success) {
+      res.status(200).json(result);
+    }
+  }).catch(err=> {
+    res.status(500).json(err);
+  }).always(()=> {
+    res.end();
+  });
+  //} else {
+  //  res.status(403).json(Json.error("未知用户权限")).end();
+  //}
   //}).catch(err=> {
   //  res.status(403).json(Json.error("查询用户权限错误")).end();
   //});
@@ -58,14 +59,15 @@ router.get('/article/get', (req, res)=> {
 router.post('/article/new', (req, res)=> {
   //authController.auth.authAdmin().then(result=> {
   //  if (req.session.user === result.data.name && req.session.pwd === result.data.pwd) {
-      controller.article.insertNewArticle(req.body).then(result=> {
-        res.status(200).json(Json.success("创建文章成功")).end();
-      }).catch(err=> {
-        res.status(500).json(Json.success("创建文章失败")).end();
-      });
-    //} else {
-    //  res.status(403).json(Json.error("未知用户权限")).end();
-    //}
+  var postData = req.body, git = postData.git;
+  controller.article.insertNewArticle(postData, git).then(result=> {
+    res.status(200).json(Json.success(result)).end();
+  }).catch(err=> {
+    res.status(500).json(Json.success(err)).end();
+  });
+  //} else {
+  //  res.status(403).json(Json.error("未知用户权限")).end();
+  //}
   //}).catch(err=> {
   //  res.status(403).json(Json.error("查询用户权限错误")).end();
   //})

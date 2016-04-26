@@ -19,7 +19,7 @@
   content "\e96b"
 
 .icon-github:before
-  content "\eab1"
+  content "\f09b"
 
 .icon-clock:before
   content "\f017"
@@ -47,3 +47,4 @@
 
 .icon-trash:before
   content "\f014"
+

@@ -10,6 +10,11 @@ export const getReplyList = ({dispatch,router,_vm}, articleId, page, limit)=> {
   ReplyApi.getReply(limit, page, articleId).then(result=> {
     if (result.ok) {
       result = result.data;
+      result.data.forEach(function (item) {
+        if (item.replyUser && item.replyUser.content) {
+          item.replyUser.content = emojiDecoding(item.replyUser.content);
+        }
+      });
       if (result.success) {
         dispatch(discussList.GET_ARTICLE_REPLY_LIST, result.data, articleId)
       } else {

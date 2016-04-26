@@ -16,12 +16,17 @@
             <input type="text" v-model="article.meta" name="meta" required>
           </label>
           <label>
-            <span>git:</span>
-            <input type="text" v-model="git" name="git" required>
+            <span>preview:</span>
+            <input type="text" v-model="article.intro.preview" name="introPreview" required>
           </label>
-          <button type="button" @click.stop="cancel">取消</button>
-          <button type="button" @click.stop="submit">提交</button>
-          <br>
+          <label>
+            <span>headerImg:</span>
+            <input v-model="article.intro.pic" type="text" name="introPic" required>
+          </label>
+          <label>
+            <span>git:</span>
+            <input v-model="git" type="text" v-model="git" name="git" required>
+          </label>
           <span>标签: </span>
           <ul class="tags">
             <li v-for="tag in article.tags" track-by="$index">
@@ -32,6 +37,8 @@
             </li>
           </ul>
           <button type="button" @click="addTags">添加标签</button>
+          <button type="button" @click.stop="cancel">取消</button>
+          <button type="button" @click.stop="submit">提交</button>
         </div>
         <section class="article-input">
           <label>
@@ -47,6 +54,7 @@
 </template>
 <script type="es6">
   import marked from '../libs/markdown/marked'
+  import  {setArticleId,formatDate} from'../libs/utils/tools'
   import {ArticleApi} from '../api'
   import Notification from '../components/notification'
   export default{
@@ -54,8 +62,13 @@
     data(){
       return {
         article: {
+          author: "Nomand",
           content: '####新文章~:smile:',
-          tags: []
+          tags: [],
+          intro: {
+            preview: "",
+            pic: ""
+          }
         },
         git: ''
       }
@@ -100,6 +113,13 @@
 
       },
       submit: function (ev) {
+        var date = new Date();
+        this.article.views = 0;
+        this.article.articleId = setArticleId(22);
+        this.article.postTime = {
+          "localTime": formatDate(date, 'yyyy-MM-dd hh:mm:ss'),
+          "UTCTime": date
+        };
         ArticleApi.createArticle(this.article, this.git).then((result) => {
           result = result.data;
           if (result.success) {
@@ -122,9 +142,4 @@
     }
   }
 </script>
-<style lang="stylus">
-  @import "../style/markdown/prism.stylus";
-  @import "../style/markdown/markdown.stylus";
-  @import '../style/articleCreate&&Update.stylus';
-</style>
 

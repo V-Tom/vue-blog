@@ -26,6 +26,7 @@ const router = new VueRouter({
   transitionOnLoad: true,
   linkActiveClass: 'v-link-active'
 });
+Vue.config.debug = process.env.NODE_ENV == "development";
 
 VueMap(router);
 

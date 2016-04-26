@@ -1,3 +1,4 @@
+reply-session-padding-left = 6rem
 reply-user-info-input-height = 3.5rem
 reply-user-info-input-width = 25rem
 
@@ -5,7 +6,7 @@ reply-user-info-input-width = 25rem
   position relative
 
   > section
-    padding-left 6rem
+    padding-left reply-session-padding-left
 
   .discuss-info label.active
     i
@@ -89,7 +90,6 @@ reply-user-info-input-width = 25rem
       top 0
       width 5rem
       height 5rem
-      cursor pointer
       border-radius 50%
       transition transform 300ms 0s ease
 
@@ -105,6 +105,22 @@ reply-user-info-input-width = 25rem
       border .1rem solid #ccc
       border-radius .5rem
       padding 0
+
+      .discuss-login-mask
+        position absolute
+        z-index 10
+        left reply-session-padding-left
+        right 0
+        top 0
+        bottom 0
+        background rgba(0, 0, 0, .5)
+        text-align center
+        font-size 1.6rem
+        padding 2rem 5rem
+
+        i
+          color #fff
+          font-size 1.8rem
 
       .discuss-content-toolbar a.active
         color #00b0e8

@@ -5,10 +5,14 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const config = require('./config');
-
-const apiVersion = config.apiVersion;
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const app = express();
+
+
+const config = require('./config')
+const apiVersion = config.apiVersion;
+const ConfigSession = require('./config').session;
 
 app.set('env', config.app.env);
 app.set('views', path.join(__dirname, './views'));
@@ -43,16 +47,21 @@ app.use('/api', (req, res, next)=> {
   next();
 });
 
+//session
+app.use(session(ConfigSession(MongoStore)));
+
 //custom router
-var index = require('./routes/index');
-const demoApi = require('./routes/api/demo');
+const index = require('./routes/index');
 const blogApi = require('./routes/api/blog');
 const toolsApi = require('./routes/api/tools');
-app.use('/', index);
+const authApi = require('./routes/api/auth');
 
-app.use('/demo', demoApi);
+app.use('/', index);
 app.use('/api/' + apiVersion + '/blog', blogApi);
+app.use('/api/' + apiVersion + '/auth', authApi);
 app.use('/api/' + apiVersion + '/tools', toolsApi);
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('Not Found');

@@ -2,9 +2,17 @@ doctype html
 html(lang='zh-CN')
     head
         meta(charset='UTF-8')
+        meta(name='keywords', content='vue-vuex-blog,fullStack,Nomand,blog')
+        meta(name="Nomand" content="a fullStack Dev")
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='robots', content='index, follow')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(href='/static/dist/style.css', rel='stylesheet')
+        link(href='/static/dist/main.2e04f5586792643a.css', rel='stylesheet')
         title=title
+        if !login
+            script#removelocalStorage.
+                window.localStorage.removeItem("NomandWebsiteLogin");
+                window.localStorage.removeItem("userName");
+                window.localStorage.removeItem("userAvatarUrl");
     body
         block content

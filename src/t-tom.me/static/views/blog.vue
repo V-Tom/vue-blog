@@ -2,7 +2,7 @@
   <section class="blog-list-page container animation" transition="page-fade" transition-mode="out-in"
            v-infinite-scroll="getArticleList()">
     <article class="post-preview" v-for="(index,item) in articleList.data">
-      <a v-link="{name:'articleDetail',params:{articleId:item.id}}">
+      <a v-link="{name:'articleDetail',params:{articleId:item.articleId}}">
         <h2 class="post-title ellipsis">{{ item.title }}</h2>
         <p class="post-subtitle ellipsis">{{ item.subtitle }}</p>
         <section class="post-content-preview">{{item.preview}}</section>

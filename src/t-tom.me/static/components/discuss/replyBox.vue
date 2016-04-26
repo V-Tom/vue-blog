@@ -1,13 +1,21 @@
 <template>
   <form class="discuss-form" action="javascript:void(0)" method="post" @submit="submit">
     <section class="discuss-content">
-      <a class="avatar" href="javascript:void(0)" @click="changeAvatar">
+      <a class="avatar" href="javascript:void(0)">
         <img
-          src="https://o42cskze7.qnssl.com/static/images/userAvatar/avatar-1.jpg"/>
+          :src="discuss.replyUser.avatar"/>
       </a>
       <div class="discuss-content-body">
-            <textarea debounce="500" v-model="discuss.replyUser.content" name="message"
-                      placeholder="{{contentPlaceholder}}" required></textarea>
+        <div class="discuss-login-mask" v-if="!isUserLogin">
+          <p>请登录后发表评论~</p>
+          <a href="javascript:void (0)" @click="login">
+            <i class="icon icon-github"></i>
+          </a>
+        </div>
+
+        <textarea debounce="500" v-model="discuss.replyUser.content" name="message"
+                  placeholder="{{contentPlaceholder}}" required></textarea>
+
         <div class="discuss-content-toolbar">
           <a href="javascript:void(0)" @click="emojiToggle" title="插入表情" v-bind:class="{'active':emoji}">
             <i class="icon icon-smile-face"></i>
@@ -16,7 +24,7 @@
       </div>
       <v-eomji :show="emoji"></v-eomji>
     </section>
-    <section class="discuss-info">
+    <section class="discuss-info" v-if="false">
       <div>
         <input v-model="discuss.replyUser.name" type="text" autocomplete="off" title="name" name="name"
                maxlength="6"
@@ -40,7 +48,7 @@
       </div>
       <div>
         <input v-model="discuss.replyUser.site" type="url" autocomplete="off" name="site" title="site"
-               maxlength="20"
+               maxlength="30"
                @focus="focus"
                @blur="blur">
         <label>
@@ -74,11 +82,21 @@
         return true;
       });
 
+      let userAvatarUrl = undefined, userName = undefined, isUserLogin = false;
+      if (window.localStorage.getItem("NomandWebsiteLogin")) {
+        userAvatarUrl = window.localStorage.getItem("userAvatarUrl");
+        userName = window.localStorage.getItem("userName");
+        isUserLogin = true;
+      } else {
+        userAvatarUrl = "https://o42cskze7.qnssl.com/static/images/userAvatar/avatar-1.jpg";
+        userName = "游客";
+      }
       return {
         "articleId": null,
-        "emoji": false,
+        "isUserLogin": isUserLogin,
         "contentPlaceholder": "欢迎指出问题~\n请不要发送无用的评论,谢谢\n暂不支持回复他人评论orz",
         "verifyCodePlaceholder": "点击获取验证码~",
+        "emoji": false,
         "verifyCode": {
           "code": '',
           "base64": null,
@@ -89,10 +107,8 @@
           "articleId": null,
           "replyUser": {
             "content": '',
-            "name": null,
-            "email": null,
-            "site": '',
-            "avatar": "http://cdn.t-tom.me/static/images/userAvatar/avatar-1.jpg",
+            "name": userName,
+            "avatar": userAvatarUrl,
             "time": {
               "localTime": null,
               "UTCTime": null
@@ -129,19 +145,37 @@
       emojiToggle: function (ev) {
         this.emoji = !this.emoji;
       },
-      focus: function (ev) {
-        var target = ev.target, name = target.name;
-        target.nextElementSibling.classList.add('active');
-      },
-      blur: function (ev) {
-        if (ev.target.value.trim() === '') {
-          ev.target.nextElementSibling.classList.remove('active');
-        }
-      },
-      changeAvatar: function (ev) {
-        Notification.info('更换头像暂不支持，努力开发中~');
+      //focus: function (ev) {
+      //  var target = ev.target, name = target.name;
+      //  target.nextElementSibling.classList.add('active');
+      //},
+      //blur: function (ev) {
+      //  if (ev.target.value.trim() === '') {
+      //    ev.target.nextElementSibling.classList.remove('active');
+      //  }
+      //},
+      login: function (ev) {
+        let clientId = "2c5d30e472a317b5c328";
+        window.open(`https://github.com/login/oauth/authorize?client_id=${clientId}&state=GitHub`, '登录~', "height=500, width=500, top=0, left=0,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=n o, status=no")
       },
       getVerifyCode: function (ev) {
+        if (!this.isUserLogin) {
+          Notification.info('请先登录~');
+          return false;
+        }
+
+        if (this.verifyCode.code && this.verifyCode.base64) {
+          if (ev.target.tagName === 'INPUT') {
+            return false;
+          } else {
+            //半分钟获取一次
+            if (new Date().getTime() - this.verifyCode.timeShown < 10000) {
+              Notification.info('获取验证码频率10s一次哦~');
+              return false;
+            }
+          }
+        }
+
         this.verifyCodePlaceholder = "读取验证码中~";
         ToolsApi.getVerifyCode().then(result=> {
           result = result.data;
@@ -159,34 +193,40 @@
         })
       },
       submit: function (ev) {
-        var user = this.discuss.replyUser;
-
+        let discuss = this.$get("discuss");
+        const resetUser = ()=> {
+          window.localStorage.removeItem("NomandWebsiteLogin");
+          window.localStorage.removeItem("userAvatarUrl");
+          window.localStorage.removeItem("userName");
+          window.location.reload();
+        };
         if (!this.verifyCode.code) {
           Notification.error('请输入验证码~!', 2, null);
           ev.preventDefault();
           ev.stopPropagation();
           return false;
-        } else if (this.verifyCode.code.toLowerCase().trim() != user.verifyCode.toLowerCase().trim()) {
+        } else if (this.verifyCode.code.toLowerCase().trim() != discuss.replyUser.verifyCode.toLowerCase().trim()) {
           Notification.error('请输入正确的验证码~!', 2, null);
           ev.preventDefault();
           ev.stopPropagation();
           return false;
         }
 
-        var data = this.$get("discuss"), date = new Date();
-        user.time.localTime = formatDate(date, 'yyyy-MM-dd hh:mm:ss');
-        user.time.UTCTime = date;
-        ReplyApi.addReply(data).then(result=> {
-          result = result.data;
-          if (result.success || result) {
-            Notification.success('发表评论成功~!', 0.5, ()=> {
+        let date = new Date();
 
+        discuss.replyUser.time.localTime = formatDate(date, 'yyyy-MM-dd hh:mm:ss');
+        discuss.replyUser.time.UTCTime = date;
+        ReplyApi.addReply(discuss).then(data=> {
+          let result = data.data;
+          if (result && result.success) {
+            Notification.success('发表评论成功~!', 0.5, ()=> {
               //add to replyList
               this.$dispatch('addReplySuccess', {
                 "replyUser": {
-                  "content": emojiDecoding(user.content),
-                  "name": user.name,
-                  "time": user.time
+                  "content": emojiDecoding(discuss.replyUser.content),
+                  "name": discuss.replyUser.name,
+                  "avatar": discuss.replyUser.avatar,
+                  "time": discuss.replyUser.time
                 }
               });
               //blur
@@ -199,22 +239,22 @@
                 "timeShown": null
               };
 
-              this.discuss.replyUser = {
-                "content": '',
-                "name": null,
-                "email": null,
-                "site": null,
-                "time": {
-                  "localTime": null,
-                  "UTCTime": null
-                },
-                "verifyCode": null
-              }
+              this.discuss.replyUser.content = "";
+              this.discuss.replyUser.time.localTime = null;
+              this.discuss.replyUser.time.UTCTime = null;
+              this.discuss.replyUser.verifyCode = "";
+
+            });
+          } else {
+            Notification.error('发表评论失败~\n' + (result.err && result.err), 2, ()=> {
+              resetUser();
             });
           }
         }, err=> {
-          console.log(err);
-          Notification.error('发表评论失败~!', 2, null);
+          Notification.error('发表评论失败~', 2, () => {
+            resetUser();
+          });
+
         });
       }
     },
@@ -222,6 +262,7 @@
       "v-eomji": require('../emoji.vue')
     }
   }
+
 </script>
 <style lang="stylus">
   @import "../../style/discuss/replyBox.stylus";

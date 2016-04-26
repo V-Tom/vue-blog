@@ -17,42 +17,66 @@ const getArticleDetail = (dbQuery) => {
 
 const updateArticleDetail = (dbQuery, doc, git)=> {
   return new Promise((resolve, reject)=> {
-    new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
-      resolve(result);
+    let blogListModel = {
+      id: doc.articleId,
+      title: doc.title,
+      subtitle: doc.subtitle || doc.subTitle,
+      tags: doc.tags,
+      preview: doc.intro ? doc.intro.preview : "",
+      meta: doc.meta
+    };
+    new DBHelperFind(dbSource.blogList).findOneAndUpdate(dbQuery, blogListModel).then((result)=> {
+      new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
+        resolve(result);
 
-      //10秒后再更新git repo
-      if (git) {
-        setTimeout(()=> {
-          try {
-            shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
-          } catch (ex) {
-            console.error(ex.stack);
-          }
-        }, 10000);
-      }
+        //10秒后再更新git repo
+        if (git) {
+          setTimeout(()=> {
+            try {
+              shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
+            } catch (ex) {
+              console.error(ex.stack);
+            }
+          }, 10000);
+        }
 
+      }).catch(err=> {
+        reject(err)
+      });
     }).catch(err=> {
-      reject(err)
-    });
-
+      reject(err);
+    })
   });
 };
 
-const insertNewArticle = (data)=> {
+const insertNewArticle = (data, git)=> {
   return new Promise((resolve, reject)=> {
-    new DBHelperInsert(dbSource.blogDetail).insertOne(data).then(result=> {
-      resolve(result);
-      //10秒后再更新git repo
-      setTimeout(()=> {
-        try {
-          shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
-        } catch (ex) {
-          console.error(ex.stack);
+    new DBHelperInsert(dbSource.blogList).insertOne({
+      articleId: data.articleId,
+      title: data.title,
+      subtitle: data.subtitle,
+      tags: data.tags,
+      preview: data.intro ? data.intro.content : "",
+      meta: data.meta
+    }).then(()=> {
+      new DBHelperInsert(dbSource.blogDetail).insertOne(data).then(result=> {
+        resolve(result);
+        //10秒后再更新git repo
+        if (git) {
+          setTimeout(()=> {
+            try {
+              shell.git.updateArticleMD(config.path.gitArticleMDPath, git, result.data.value)
+            } catch (ex) {
+              console.error(ex.stack);
+            }
+          }, 10000);
         }
-      }, 10000);
+      }).catch(err=> {
+        reject(err)
+      });
     }).catch(err=> {
-      reject(err)
-    });
+      reject(err);
+    })
   });
 };
 

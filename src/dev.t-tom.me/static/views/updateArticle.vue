@@ -16,12 +16,17 @@
             <input type="text" v-model="article.meta" name="meta" required>
           </label>
           <label>
+            <span>preview:</span>
+            <input type="text" v-model="article.intro.preview" name="introPreview" required>
+          </label>
+          <label>
+            <span>headerImg:</span>
+            <input v-model="article.intro.pic" type="text" name="introPic" required>
+          </label>
+          <label>
             <span>git:</span>
             <input type="text" v-model="git" name="git" required>
           </label>
-          <button type="button" @click.stop="cancel">取消</button>
-          <button type="button" @click.stop="submit">提交</button>
-          <br>
           <span>标签: </span>
           <ul class="tags">
             <li v-for="tag in article.tags" track-by="$index">
@@ -32,6 +37,8 @@
             </li>
           </ul>
           <button type="button" @click="addTags">添加标签</button>
+          <button type="button" @click.stop="cancel">取消</button>
+          <button type="button" @click.stop="submit">提交</button>
         </div>
         <section class="article-input">
           <label>
@@ -56,6 +63,10 @@
       return {
         article: {
           content: '####读取数据中~:smile:',
+          intro: {
+            preview: "",
+            pic: ""
+          }
         },
         git: ''
       }
@@ -141,9 +152,4 @@
     }
   }
 </script>
-<style lang="stylus">
-  @import "../style/markdown/prism.stylus";
-  @import "../style/markdown/markdown.stylus";
-  @import '../style/articleCreate&&Update.stylus';
-</style>
 

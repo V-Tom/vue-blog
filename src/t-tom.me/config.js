@@ -13,6 +13,7 @@ module.exports = {
     dbBlog: config.db.blog,
     dbUser: config.db.users
   },
-  dbSource: config.dbSource
+  dbSource: config.dbSource,
+  userAccess: config.userAccess
 };
 

@@ -10,9 +10,6 @@ import header from './modules/header.modules'
 import discussList from './modules/discuss.list.modules'
 
 Vue.use(Vuex);
-const debug = process.env.NODE_ENV == "development";
-
-Vue.config.debug = debug;
 export default new Vuex.Store({
   modules: {
     loader,
@@ -21,6 +18,6 @@ export default new Vuex.Store({
     articleList,
     discussList
   },
-  strict: debug,
+  strict: process.env.NODE_ENV == "development",
   middlewares
 })
