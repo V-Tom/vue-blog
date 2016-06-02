@@ -1,19 +1,29 @@
 #t-tom blog
 
-### set up
-#### `npm install`
+Vue版本的博客
 
-### run base dev
-#### `npm run base-dev`
+[React 版本](https://github.com/V-Tom/react-blog)
 
-### run base build
-#### `npm run base-build`
+[React-native版本](https://github.com/V-Tom/ReactNative)
 
-### run dev dev
-#### `npm run dev-dev`
+electron版本开发中
 
-### run dev build
-#### `npm run dev-build`
+>后端：express,flask,mongodb native 写的restful API
+
+#### set up
+##### `npm install`
+
+#### run base dev
+##### `npm run base-dev`
+
+#### run base build
+##### `npm run base-build`
+
+#### run dev dev
+##### `npm run dev-dev`
+
+#### run dev build
+##### `npm run dev-build`
 
 ### 目录结构
 
@@ -22,6 +32,8 @@
 ├── README.md           
 ├── config                   // 公用配置文件
 ├── logs                     // 生产环境日志目录
+├── mods                    // server helper
+├── server                  // server 启动文件
 ├── src                      // 生产目录
      ├── build                      // webpack配置
         ├── webpack.config.dev.js        // 开发环境Webpack配置文件
@@ -52,8 +64,4 @@
 .
 ```
 
-## online
-### `pm2 start process.json`
-
-##base-dev
 MIT
