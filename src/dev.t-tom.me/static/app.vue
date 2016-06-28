@@ -26,7 +26,6 @@
       if (document.querySelectorAll('head style[data-type="emoji"]').length === 0) {
         writeEmojiStyle();
       }
-      copyListener();
     },
     components: {
       'v-header': require('./components/header.vue'),

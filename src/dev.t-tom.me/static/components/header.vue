@@ -7,7 +7,7 @@
         <section class="App_nav_description" data-page="I Am A Full-stack Developer"></section>
         <section class="App_nav_logo">
           <i class="icon icon-logo"></i>
-          <a href="https://t-tom.me" target="_blank" title="0"></a>
+          <a href="https://t-tom.me" target="_blank" title="full stack"></a>
           <button type="button" class="App_nav_toggle">
             <span></span>
             <span></span>
@@ -16,11 +16,11 @@
         </section>
         <section class="App_nav_bar">
           <ul>
-            <li><a href="https://t-tom.me/#!/blog" target="_blank" title="1"><i class="icon icon-blog"></i></a></li>
+            <li><a href="https://t-tom.me/#!/blog" target="_blank" title="Blog"><i class="icon icon-blog"></i></a></li>
             <!--<li><a href="https://t-tom.me/#!/labs" target="_blank" title="labs"><i class="icon icon-labs"></i></a></li>-->
           </ul>
           <ul>
-            <li><a href="https://t-tom.me/#!/about" target="_blank" title="2"><i class="icon icon-me"></i></a></li>
+            <li><a href="https://t-tom.me/#!/about" target="_blank" title="me"><i class="icon icon-me"></i></a></li>
             <!--<li><a href="https://t-tom.me/#!/message" target="_blank" title="message"><i class="icon icon-message"></i></a></li>-->
           </ul>
         </section>

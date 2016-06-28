@@ -32,7 +32,8 @@ router.get('/', (req, res, next)=> {
 /*404 PAGE*/
 router.get('/404', (req, res)=> {
   res.render('404', {
-    title: Config.app.routerTitle.notFound
+    title: Config.app.routerTitle.notFound,
+    message:"404 Not Found"
   });
 });
 

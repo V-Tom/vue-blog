@@ -24,8 +24,8 @@ class App {
   _setCodeStyle(code) {
     var ctx = this.ctx;
 
-    ctx.font = '2px serif';
-    ctx.fillStyle = 'rgba(0,0,0,.5)';
+    ctx.font = '15px serif';
+    ctx.fillStyle = 'rgba(0,0,0,.8)';
     var codeList = code.split('');
     for (var i = 0; i < this.verifyCodeLength; i++) {
       ctx.fillText(codeList[i], 15 * i, 20);
@@ -39,7 +39,7 @@ class App {
     var code = this._getRandomCode();
     this._setCodeStyle(code);
     return {
-      canvas: this.canvas,
+      canvas: this.canvas.toDataURL(),
       code: code
     };
   }

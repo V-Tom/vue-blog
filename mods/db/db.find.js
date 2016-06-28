@@ -101,7 +101,7 @@ class App extends core {
         sort: null,
         //Upsert the document if it does not exist.
         // 如果文档不存在是否创建新文档
-        upsert: false,
+        upsert: true,
         //When false, returns the updated document rather than the original. The default is true.
         //如果设置为false，返回更新后的文档而不是旧的文档
         returnOriginal: false

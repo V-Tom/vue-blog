@@ -9,9 +9,20 @@
     </p>
     <br/>
     <p>
-      最爱JavaScript,偶尔写写Python。在大学期间接触到vb和html，从此开始了我的程序之路至今。本博客repo:<a
-      href="https://github.com/V-Tom/vue-blog">vue-blog</a>
+      最爱JavaScript,偶尔写写Python。在大学期间接触到vb和html，从此开始了我的程序之路至今。
     </p>
+    <p>本博客repo:</p>
+    <ul>
+      <li>
+        <a href="https://github.com/V-Tom/vue-blog">Vue版本</a>
+      </li>
+      <li>
+        <a href="https://github.com/V-Tom/react-blog">React版本(开发中)</a>
+      </li>
+      <li>
+        <a href="https://github.com/V-Tom/ReactNative">React-Native版本(开发中)</a>
+      </li>
+    </ul>
     <br/>
     <p>
       大量阅读写demo,用Node.js开发过几个应用,曾经接触过Vue.js并用之写了这个博客,正在开发react-native客户端中.

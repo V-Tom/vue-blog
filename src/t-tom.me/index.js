@@ -10,9 +10,10 @@ const MongoStore = require('connect-mongo')(session);
 const app = express();
 
 
-const config = require('./config')
+const config = require('./config');
 const apiVersion = config.apiVersion;
 const ConfigSession = require('./config').session;
+
 
 app.set('env', config.app.env);
 app.set('views', path.join(__dirname, './views'));
@@ -96,6 +97,22 @@ app.use(function (err, req, res, next) {
   next();
 });
 
+
+if (!Promise.always) {
+  Promise.prototype.always = function (callback) {
+    var P = this.constructor;
+    return this.then(
+      (result) => {
+        return P.resolve(callback()).then(()=> {
+          return result;
+        })
+      }, (err)=> {
+        return P.resolve(callback()).then(()=> {
+          throw err;
+        })
+      });
+  };
+}
 
 module.exports = app;
 

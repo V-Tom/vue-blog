@@ -5,14 +5,15 @@ const router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const path = require('path');
 
-var controller = require('../../controller/blog');
-var authController = require('../../controller/auth');
-var json = require('../../../../mods/jsonWrap');
+const controller = require('../../controller/blog');
+const json = require('../../../../mods/jsonWrap');
 
 
-//获取文章列表
+/**
+ * 获取文章列表
+ */
 router.get('/list/', (req, res)=> {
-  var param = req.query, limit, page, options = null, dbQuery = {};
+  let param = req.query, limit, page, options = null, dbQuery = {};
   if (typeof param == 'object') {
     if (param.limit && param.page) {
       limit = Number(param.limit);
@@ -30,6 +31,7 @@ router.get('/list/', (req, res)=> {
       //暂时不允许不存在分页
       res.status(500).json(json.error("暂时不允许不存在分页的查询!")).end();
     }
+
     dbQuery = param.tag ? {"tags": String(param.tag.toString())} : {};
 
     controller.article.getArticleList(dbQuery, options).then(result=> {
@@ -42,10 +44,13 @@ router.get('/list/', (req, res)=> {
   } else {
     res.status(404).end();
   }
+
 });
 
 
-//获取文章详情
+/**
+ * 获取文章详情
+ */
 router.get('/article/get', (req, res)=> {
   var query = req.query, id, dbQuery;
   id = query.articleId;
@@ -61,15 +66,24 @@ router.get('/article/get', (req, res)=> {
   }).always(()=> {
     res.end();
   });
+
 });
 
-//获取文章的评论列表
+/**
+ * 获取文章的评论列表
+ */
 router.get('/reply/list', (req, res)=> {
-  var data = req.query, dbQuery, limit, page, articleId;
+  let data = req.query, dbQuery, limit, page;
+
   limit = Number(data.limit);
   page = Number(data.page);
-  articleId = data.articleId;
-  dbQuery = {"articleId": articleId};
+  dbQuery = {articleId: data.articleId};
+
+  if (isNaN(limit) || isNaN(page)) {
+    //获取文章的评论列表分页查询错误
+    res.status(200).json(json.error("获取文章的评论列表分页查询错误!")).end();
+  }
+
   controller.reply.getReply(dbQuery, {
     skip: limit * (page - 1),
     limit: limit
@@ -82,10 +96,13 @@ router.get('/reply/list', (req, res)=> {
     res.status(500).json(err);
   }).always(()=> {
     res.end();
-  })
+  });
+
 });
 
-//对文章进行评论
+/**
+ * 对文章进行评论
+ */
 router.post('/reply/add', (req, res)=> {
   let session = req.session, userId = session.userId;
   if (userId) {

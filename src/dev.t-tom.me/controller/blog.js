@@ -8,6 +8,7 @@ const path = require('path');
 const ObjectId = require('mongodb').ObjectID,
   DBHelperFind = require(path.join(config.path.modsPath, 'db/db.find')),
   DBHelperInsert = require(path.join(config.path.modsPath, 'db/db.insert')),
+  redisHelper=require(path.join(config.path.modsPath, 'redis')).helper,
   DBHelperTools = require(path.join(config.path.modsPath, 'db/db.tools'));
 
 
@@ -26,22 +27,22 @@ const updateArticleDetail = (dbQuery, doc, git)=> {
       meta: doc.meta
     };
     new DBHelperFind(dbSource.blogList).findOneAndUpdate(dbQuery, blogListModel).then((result)=> {
-      new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
-        resolve(result);
-
-        //10秒后再更新git repo
-        if (git) {
-          setTimeout(()=> {
-            try {
-              shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
-            } catch (ex) {
-              console.error(ex.stack);
-            }
-          }, 10000);
-        }
-
-      }).catch(err=> {
-        reject(err)
+      redisHelper.set(`articleId:${blogListModel.id}`,blogListModel,()=>{
+        new DBHelperFind(dbSource.blogDetail).findOneAndUpdate(dbQuery, doc).then(result=> {
+          resolve(result);
+          //10秒后再更新git repo
+          if (git) {
+            setTimeout(()=> {
+              try {
+                shell.git.updateArticleMD(config.path.gitArticleMDPath, git || "update file", result.data.value)
+              } catch (ex) {
+                console.error(ex.stack);
+              }
+            }, 10000);
+          }
+        }).catch(err=> {
+          reject(err)
+        });
       });
     }).catch(err=> {
       reject(err);

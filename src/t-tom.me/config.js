@@ -14,6 +14,7 @@ module.exports = {
     dbUser: config.db.users
   },
   dbSource: config.dbSource,
-  userAccess: config.userAccess
+  userAccess: config.userAccess,
+  redisExp:10
 };
 

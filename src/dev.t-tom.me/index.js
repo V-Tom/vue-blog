@@ -18,11 +18,12 @@ const devVersion = config.devVersion;
 
 app.set('env', config.app.env);
 app.set('views', path.join(__dirname, './views'));
+app.set('lastModified',true);
 app.set('view engine', 'jade');
 app.set('x-powered-by', false);
-app.set('etag', true);
+app.set('etag', false);
 
-if (app.get('env') === 'development') {
+if (app.get('env') == 'development') {
   const allowCrossDomain = (req, res, next) => {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', '*');
@@ -49,7 +50,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 //cookie
 app.use(cookieParser());
 //static
-app.use('/static/dist', express.static(path.join(__dirname, './dist'), {
+app.use('/statics/dist', express.static(path.join(__dirname, './dist'), {
   maxAge: config.app.maxAge
 }));
 //session
