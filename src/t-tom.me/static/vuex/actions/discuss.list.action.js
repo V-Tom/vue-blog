@@ -24,7 +24,7 @@ export const getReplyList = ({dispatch,router,_vm}, articleId, page, limit)=> {
       Notification.error('啊哦~获取评论列表失败')
     }
   }).catch(ex=> {
-    Notification.error('啊哦~获取评论列表发生错误:' + ex.data.message)
+    Notification.error('啊哦~获取评论列表发生错误:' + ex.data.err)
   })
 };
 

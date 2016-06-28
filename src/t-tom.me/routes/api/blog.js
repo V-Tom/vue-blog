@@ -73,21 +73,11 @@ router.get('/article/get', (req, res)=> {
  * 获取文章的评论列表
  */
 router.get('/reply/list', (req, res)=> {
-  let data = req.query, dbQuery, limit, page;
+  let data = req.query, dbQuery;
 
-  limit = Number(data.limit);
-  page = Number(data.page);
   dbQuery = {articleId: data.articleId};
 
-  if (isNaN(limit) || isNaN(page)) {
-    //获取文章的评论列表分页查询错误
-    res.status(200).json(json.error("获取文章的评论列表分页查询错误!")).end();
-  }
-
-  controller.reply.getReply(dbQuery, {
-    skip: limit * (page - 1),
-    limit: limit
-  }).then(result=> {
+  controller.reply.getReply(dbQuery, {}).then(result=> {
     if (result.success) {
       result.data.reverse();
       res.status(200).json(result);

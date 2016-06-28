@@ -16,7 +16,7 @@ const updateArticleViews = function (articleId) {
 
 const getArticleDetail = function (dbQuery) {
   return new Promise((resolve,reject)=>{
-    let key=`articleId:${dbQuery.articleId}`;
+    let key=`articleDetailId:${dbQuery.articleId}`;
     redisHelper.get(key).then(data=>{
       let result;
       try{
@@ -49,7 +49,7 @@ const getArticleDetail = function (dbQuery) {
 
 const getArticleList = function (dbQuery, options) {
   return new Promise((resolve,reject)=>{
-    let key=`articleList:${dbQuery && dbQuery.tags ? dbQuery.tags: "all"}`;
+    let key=`articleListId:${dbQuery && dbQuery.tags ? dbQuery.tags: "all"}`;
     redisHelper.get(key).then(data=>{
       let result;
       try{
@@ -80,7 +80,7 @@ const getArticleList = function (dbQuery, options) {
 };
 
 const getReply = function (dbQuery, options) {
-  let key=`articleId:${dbQuery.articleId}`;
+  let key=`articleReplyId:${dbQuery.articleId}`;
   return new Promise((resolve,reject)=> {
     redisHelper.get(key).then(data=> {
       let result;
