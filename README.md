@@ -1,5 +1,7 @@
 #t-tom blog
 
+**本仓库已经废弃，请转至新完全重构的项目[React+Koa](https://github.com/V-Tom/blog)**
+
 Vue版本的博客
 
 [博客文章MD文件repo](https://github.com/V-Tom/blogArticle)
